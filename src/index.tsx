@@ -1,4 +1,5 @@
 import 'normalize.css';
+import '@mantine/core/dist/lib.css';
 import './styles.less';
 
 import React from 'react';
