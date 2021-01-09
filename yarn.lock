@@ -830,9 +830,9 @@
     regenerator-runtime "^0.13.3"
 
 "@mantine/core@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.1.tgz#8fd1ed42993c0da3d6f6e50f7a75944b740072a7"
-  integrity sha512-Ko90Gc8/Iit7oYC4V1Dto0K2tiHQdRIxUp14Os5BxcilgGz1zyxKnLExkvxyplfnI/cSA2CqGgBaC879uY5b+Q==
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.2.tgz#c8d2765a9ba691a24f7e8ceef9c9872dc1eda440"
+  integrity sha512-CxR1WNI5vGynMpfCMdDrGwn2Wrz8ixA8pDgFyupaCjRlT2U5TlXeAm0d1x8wUv0eFyzhhGKIoLOONhB2aFvfUQ==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"

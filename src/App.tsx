@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { LocaleProvider } from './components/LocaleProvider/LocaleProvider';
+import { LocaleProvider } from './LocaleProvider';
 import HomePage from './routes/home/HomePage';
 import settings from '../settings';
 import LoginRoute from './routes/auth/Login.route';

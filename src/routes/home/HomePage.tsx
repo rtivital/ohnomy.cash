@@ -1,6 +1,7 @@
 import React from 'react';
 // import axios from 'axios';
 import { Button } from '@mantine/core';
+import useTranslations from '../../translations/use-translations';
 
 // axios.get('http://localhost:4005/categories', {
 //   headers: {
@@ -10,12 +11,14 @@ import { Button } from '@mantine/core';
 // });
 
 export default function HomePage() {
+  const t = useTranslations();
+
   return (
     <div>
       <h1 style={{ fontSize: 50, fontWeight: 'bold', textAlign: 'center' }}>
         React Pages Boilerplate!
       </h1>
-      <Button />
+      <Button>{t('register')}</Button>
     </div>
   );
 }
