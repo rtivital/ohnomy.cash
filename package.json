@@ -36,7 +36,8 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "webpack-bundle-analyzer": "^3.8.0"
+    "webpack-bundle-analyzer": "^3.8.0",
+    "xooks": "^2.2.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

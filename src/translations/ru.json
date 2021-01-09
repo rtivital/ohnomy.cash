@@ -1,0 +1,37 @@
+{
+  "login": "войти",
+  "email": "почта",
+  "name": "имя",
+  "password": "пароль",
+  "register": "зарегестрироваться",
+  "invalid_credentials": "неправильная почта или пароль",
+  "does_not_have_an_accont": "ещё нет аккаунта?",
+  "already_have_an_accont": "уже есть аккаунт?",
+
+  "add_month": "добавить месяц",
+  "description": "описание",
+  "category": "категория",
+
+  "spendings": "расходы",
+  "spending": "расход",
+  "date": "дата",
+  "add_spending": "добавить расход",
+
+  "incomes": "доходы",
+  "income": "доход",
+  "add_income": "добавить доход",
+
+  "savings": "накопления",
+  "saving": "отложено",
+  "add_saving": "добавить накопление",
+
+  "summary": "итоги",
+  "total": "итого",
+  "month_spendings": "раходы за месяц",
+  "month_incomes": "доходы за месяц",
+  "month_savings": "накопления за месяц",
+  "incomes_spendings_diff": "доходы - расходы",
+  "balance_month_start": "баланс на начало месяца",
+  "balance_month_end": "баланс на конец месяца",
+  "total_savings": "всего отложено"
+}
