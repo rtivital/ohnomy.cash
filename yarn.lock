@@ -830,9 +830,14 @@
     regenerator-runtime "^0.13.3"
 
 "@mantine/core@^0.1.1":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.2.tgz#c8d2765a9ba691a24f7e8ceef9c9872dc1eda440"
-  integrity sha512-CxR1WNI5vGynMpfCMdDrGwn2Wrz8ixA8pDgFyupaCjRlT2U5TlXeAm0d1x8wUv0eFyzhhGKIoLOONhB2aFvfUQ==
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.4.tgz#00c57911831e8dbb4cffa69d0144b22f92e3436e"
+  integrity sha512-SNHg49TRaY8R3sbDBxGz45ZXvtHlrpdEphb4AQhtZk7F+EM0XCU0IZ3E0PxSMMYxdODOWLEUjZax27/FNmdiXw==
+
+"@modulz/radix-icons@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@modulz/radix-icons/-/radix-icons-3.3.0.tgz#4af89aa773d8a3951814a3500ccb1eeb2d2cd262"
+  integrity sha512-Wf6YMSsTVmldg3TXP0IbW/a9/zi9vx4vrRmoaIPMsQtVtjtGwwaObJorRwoN+e4vXEeIeQPccdeRslzvkKxELg==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
