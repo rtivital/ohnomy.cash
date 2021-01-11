@@ -26,7 +26,9 @@ export default function AuthFormWrapper({
         onSubmit();
       }}
     >
-      <Title className={classes.title}>{title}</Title>
+      <Title className={classes.title} order={2}>
+        {title}
+      </Title>
 
       {children}
 

@@ -1,5 +1,6 @@
 import React from 'react';
+import AuthForm from './AuthForm/AuthForm';
 
-export default function RegisterRoute() {
-  return <div>register</div>;
+export default function LoginRoute() {
+  return <AuthForm type="register" />;
 }

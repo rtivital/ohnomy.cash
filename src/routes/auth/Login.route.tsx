@@ -1,12 +1,6 @@
 import React from 'react';
-import LoginForm from './AuthForm/forms/LoginForm';
-import RegisterForm from './AuthForm/forms/RegisterForm';
+import AuthForm from './AuthForm/AuthForm';
 
 export default function LoginRoute() {
-  return (
-    <div>
-      <LoginForm />
-      <RegisterForm />
-    </div>
-  );
+  return <AuthForm type="login" />;
 }
