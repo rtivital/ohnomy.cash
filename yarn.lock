@@ -829,10 +829,15 @@
     core-js "^3.4.1"
     regenerator-runtime "^0.13.3"
 
-"@mantine/core@^0.1.1":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.4.tgz#00c57911831e8dbb4cffa69d0144b22f92e3436e"
-  integrity sha512-SNHg49TRaY8R3sbDBxGz45ZXvtHlrpdEphb4AQhtZk7F+EM0XCU0IZ3E0PxSMMYxdODOWLEUjZax27/FNmdiXw==
+"@mantine/core@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.5.tgz#2ea9193137694e3f383457fa63f85f0839d6f04d"
+  integrity sha512-adKvrqKwVtOgeSvM2Yxc38EfQOBSeA/LbItPvx8o0l6ex2R7dd9nNLhO1tPM0XOEwg/NNFA67DSpHu1sAOPi+w==
+
+"@mantine/tag-picker@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@mantine/tag-picker/-/tag-picker-0.1.0.tgz#c94b5b89cf69c0ef312dcf81707fcf7f8e80622f"
+  integrity sha512-j+CuUDFG2xQfXS4TbToKe6HnynIB6XlJDhbgPcA9UzXyrTX+zjvn7rWquje+fAXQIK9T4S52esmMTOqKONPbYA==
 
 "@modulz/radix-icons@^3.3.0":
   version "3.3.0"
