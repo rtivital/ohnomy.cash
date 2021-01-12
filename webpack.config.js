@@ -124,7 +124,10 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(mode) }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(mode),
+      'process.env.API_URL': JSON.stringify('localhost:4005'),
+    }),
     new FaviconsWebpackPlugin({
       logo: path.join(__dirname, './favicon.png'),
       background: '#ffeeee',

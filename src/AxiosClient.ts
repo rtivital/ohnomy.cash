@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-export default class AxiosClient {
+class AxiosClient {
   private baseURL: string;
   client: AxiosInstance;
 
@@ -24,3 +24,5 @@ export default class AxiosClient {
     localStorage.setItem('@ohnomycash/jwt', token);
   }
 }
+
+export default new AxiosClient(process.env.API_URL);
