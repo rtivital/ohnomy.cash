@@ -22,7 +22,7 @@ export default function LoginForm() {
     <AuthFormWrapper
       title={t('login')}
       submitText={t('login')}
-      onSubmit={() => {}}
+      onSubmit={() => console.log('submit2')}
       switchLink="/auth/register"
       switchText={t('register')}
       description={t('does_not_have_an_accont')}
