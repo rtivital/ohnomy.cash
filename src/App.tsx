@@ -5,15 +5,22 @@ import HomePage from './routes/home/HomePage';
 import settings from '../settings';
 import LoginRoute from './routes/auth/Login.route';
 import RegisterRoute from './routes/auth/Register.route';
+import AppContainer from './components/AppContainer/AppContainer';
 
 export default function App() {
   return (
     <LocaleProvider defaultLocale="ru">
       <BrowserRouter basename={settings.repoPath}>
         <Switch>
-          <Route exact path="/" component={HomePage} />
           <Route path="/auth/login" component={LoginRoute} />
           <Route path="/auth/register" component={RegisterRoute} />
+          <Route>
+            <AppContainer>
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+              </Switch>
+            </AppContainer>
+          </Route>
         </Switch>
       </BrowserRouter>
     </LocaleProvider>
