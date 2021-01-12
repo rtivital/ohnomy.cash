@@ -21,7 +21,14 @@ export default function RegisterForm() {
   });
 
   return (
-    <AuthFormWrapper title={t('register')} submitText={t('register')} onSubmit={() => {}}>
+    <AuthFormWrapper
+      title={t('register')}
+      submitText={t('register')}
+      onSubmit={() => {}}
+      switchLink="/auth/login"
+      switchText={t('login')}
+      description={t('already_have_an_accont')}
+    >
       <TextInput
         required
         id="name"

@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'clsx';
-import { Button, Title, ElementsGroup } from '@mantine/core';
+import { Link } from 'react-router-dom';
+import { Button, Title, ElementsGroup, Text } from '@mantine/core';
 import classes from './AuthFormWrapper.styles.less';
 
 interface AuthFormWrapperProp {
@@ -8,6 +9,9 @@ interface AuthFormWrapperProp {
   title: string;
   children: React.ReactNode;
   submitText: string;
+  description: string;
+  switchLink: string;
+  switchText: string;
   onSubmit(): void;
 }
 
@@ -17,6 +21,9 @@ export default function AuthFormWrapper({
   children,
   onSubmit,
   submitText,
+  description,
+  switchLink,
+  switchText,
 }: AuthFormWrapperProp) {
   return (
     <form
@@ -35,6 +42,16 @@ export default function AuthFormWrapper({
       <ElementsGroup position="right" className={classes.controls}>
         <Button type="submit">{submitText}</Button>
       </ElementsGroup>
+
+      <div className={classes.description}>
+        <Text theme="muted" size="sm">
+          {description}
+        </Text>
+
+        <Link className={classes.link} to={switchLink}>
+          {switchText}
+        </Link>
+      </div>
     </form>
   );
 }

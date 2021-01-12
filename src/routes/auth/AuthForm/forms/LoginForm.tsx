@@ -19,7 +19,14 @@ export default function LoginForm() {
   });
 
   return (
-    <AuthFormWrapper title={t('login')} submitText={t('login')} onSubmit={() => {}}>
+    <AuthFormWrapper
+      title={t('login')}
+      submitText={t('login')}
+      onSubmit={() => {}}
+      switchLink="/auth/register"
+      switchText={t('register')}
+      description={t('does_not_have_an_accont')}
+    >
       <TextInput
         required
         type="email"
