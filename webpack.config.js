@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CnameWebpackPlugin = require('cname-webpack-plugin');
@@ -52,6 +53,7 @@ module.exports = {
   resolve: {
     modules: [path.join(__dirname, './node_modules')],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    plugins: [new TsconfigPathsPlugin({})],
   },
 
   module: {

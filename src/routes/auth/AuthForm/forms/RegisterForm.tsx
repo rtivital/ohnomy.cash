@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'xooks';
 import { useHistory } from 'react-router-dom';
 import { TextInput, PasswordInput } from '@mantine/core';
-import axiosClient from '../../../../AxiosClient';
+import axiosClient from '../../../../api/client';
 import useTranslations from '../../../../translations/use-translations';
 import AuthFormWrapper from '../AuthFormWrapper/AuthFormWrapper';
 
@@ -26,7 +26,7 @@ export default function RegisterForm() {
   });
 
   const handleSubmit = () => {
-    axiosClient.client
+    axiosClient.axios
       .post('/auth/register', form.values)
       .then((response) => {
         axiosClient.setToken(response.data.token);
