@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'xooks';
+import { useHistory } from 'react-router-dom';
 import { TextInput, PasswordInput } from '@mantine/core';
+import axiosClient from '../../../../AxiosClient';
 import useTranslations from '../../../../translations/use-translations';
 import AuthFormWrapper from '../AuthFormWrapper/AuthFormWrapper';
 
 export default function RegisterForm() {
+  const history = useHistory();
   const t = useTranslations();
+  const [error, setError] = useState(false);
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -20,14 +25,25 @@ export default function RegisterForm() {
     },
   });
 
+  const handleSubmit = () => {
+    axiosClient.client
+      .post('/auth/register', form.values)
+      .then((response) => {
+        axiosClient.setToken(response.data.token);
+        history.replace('/');
+      })
+      .catch(() => setError(true));
+  };
+
   return (
     <AuthFormWrapper
       title={t('register')}
       submitText={t('register')}
-      onSubmit={() => {}}
+      onSubmit={handleSubmit}
       switchLink="/auth/login"
       switchText={t('login')}
       description={t('already_have_an_accont')}
+      error={error ? t('invalid_credentials') : null}
     >
       <TextInput
         required
