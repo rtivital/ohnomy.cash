@@ -1,17 +1,25 @@
 import axios, { AxiosInstance } from 'axios';
 
+const JWT_KEY = '@onhomycash/jwt';
+
 class AxiosClient {
   private baseURL: string;
+  private token: string;
   client: AxiosInstance;
 
   constructor(baseURL: string) {
-    const token = localStorage.getItem('@onhomycash/jwt');
-
+    this.token = localStorage.getItem(JWT_KEY);
     this.baseURL = baseURL;
 
     this.client = axios.create({
       baseURL,
-      headers: token ? { Authorization: `Bearer ${token}` } : null,
+      headers: this.token ? { Authorization: `Bearer ${this.token}` } : null,
+    });
+
+    this.client.interceptors.response.use(null, (error) => {
+      if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
+        window.location.replace('/auth/login');
+      }
     });
   }
 
@@ -21,7 +29,7 @@ class AxiosClient {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    localStorage.setItem('@ohnomycash/jwt', token);
+    localStorage.setItem(JWT_KEY, token);
   }
 }
 
