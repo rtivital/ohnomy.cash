@@ -13,6 +13,7 @@ interface AuthFormWrapperProp {
   switchLink: string;
   switchText: string;
   onSubmit(): void;
+  error?: string;
 }
 
 export default function AuthFormWrapper({
@@ -24,6 +25,7 @@ export default function AuthFormWrapper({
   description,
   switchLink,
   switchText,
+  error,
 }: AuthFormWrapperProp) {
   return (
     <form
@@ -42,6 +44,8 @@ export default function AuthFormWrapper({
       <ElementsGroup position="right" className={classes.controls}>
         <Button type="submit">{submitText}</Button>
       </ElementsGroup>
+
+      {error && <Text theme="danger">{error}</Text>}
 
       <div className={classes.description}>
         <Text theme="muted" size="sm">
