@@ -38,6 +38,7 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'spaced-comment': 'off',
     'react/jsx-curly-newline': 'off',
+    'react/jsx-indent': 'off',
     'comma-dangle': [
       'error',
       {

@@ -6,6 +6,29 @@
   width: 200px;
   position: absolute;
   z-index: 10;
-  top: 0;
-  left: 0;
+  top: 15px;
+  left: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.monthControl {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  border: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: transparent;
+  outline: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @oc-blue-0;
+  }
+}
+
+.monthTitle {
+  text-transform: capitalize;
+  margin-right: 5px;
 }

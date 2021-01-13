@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import cx from 'clsx';
 import { useClickOutside } from 'xooks';
-import { Text, DropdownBody } from '@mantine/core';
-import { CheckIcon } from '@modulz/radix-icons';
+import { ChevronDownIcon } from '@modulz/radix-icons';
+import { DropdownBody, Text } from '@mantine/core';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import { useLocale } from 'src/LocaleProvider';
 import groupMonths from './group-months';
 import formatMonth from './format-month';
-import isMonthSelected from './is-month-selected';
+import MonthsList from './MonthsList/MonthsList';
 import classes from './MonthPicker.styles.less';
 
 interface MonthPickerProps {
@@ -33,30 +33,18 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
 
   const years = !state.loaded
     ? null
-    : state.data.map(([year, months]) => {
-        const items = months.map((month) => (
-          <button
-            key={month.id}
-            type="button"
-            onClick={() => {
-              onChange(new Date(month.date));
-              setDropdownOpened(false);
-            }}
-          >
-            <span>{formatMonth({ date: month.date, locale })}</span>
-            {isMonthSelected(value, month.date) && <CheckIcon />}
-          </button>
-        ));
-
-        return (
-          <div key={year}>
-            <Text theme="muted" size="sm">
-              {year}
-            </Text>
-            {items}
-          </div>
-        );
-      });
+    : state.data.map(([year, months]) => (
+        <MonthsList
+          key={year}
+          months={months}
+          value={value}
+          year={year}
+          onChange={(date) => {
+            onChange(new Date(date));
+            setDropdownOpened(false);
+          }}
+        />
+      ));
 
   useEffect(() => {
     if (!state.loaded) {
@@ -71,12 +59,20 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
 
   return (
     <div className={cx(classes.monthPicker, className)}>
-      <button type="button" onClick={() => setDropdownOpened(true)}>
-        {formatMonth({ date: value, locale, includeYear: true })}
+      <button
+        className={classes.monthControl}
+        type="button"
+        onClick={() => setDropdownOpened(true)}
+      >
+        <Text size="lg" bold className={classes.monthTitle}>
+          {formatMonth({ date: value, locale, includeYear: true })}
+        </Text>
+
+        <ChevronDownIcon />
       </button>
 
       {dropdownOpened && (
-        <DropdownBody elementRef={dropdownRef} className={classes.dropdown}>
+        <DropdownBody elementRef={dropdownRef} className={classes.dropdown} noPadding>
           {years}
         </DropdownBody>
       )}
