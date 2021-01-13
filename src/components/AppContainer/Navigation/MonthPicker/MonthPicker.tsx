@@ -27,7 +27,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
   const dropdownRef = useRef();
   const locale = useLocale();
   const [state, setState] = useState<MonthPickerState>({ loaded: false, data: null, error: null });
-  const [dropdownOpened, setDropdownOpened] = useState(true);
+  const [dropdownOpened, setDropdownOpened] = useState(false);
 
   useClickOutside(dropdownRef, () => setDropdownOpened(false));
 

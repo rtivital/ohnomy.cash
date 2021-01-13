@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LocaleProvider } from './LocaleProvider';
-import HomePage from './routes/home/HomePage';
 import settings from '../settings';
 import LoginRoute from './routes/auth/Login.route';
 import RegisterRoute from './routes/auth/Register.route';
+import MonthRoute from './routes/month/Month.route';
 import AppContainer from './components/AppContainer/AppContainer';
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
           <Route path="/:month?">
             <AppContainer>
               <Switch>
-                <Route path="/:month?" component={HomePage} />
+                <Route path="/:month?" component={MonthRoute} />
               </Switch>
             </AppContainer>
           </Route>

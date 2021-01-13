@@ -20,10 +20,10 @@ export default function MonthsList({ months, onChange, value, year }: MonthsList
 
   const items = months.map((month) => (
     <button
+      key={month.id}
       className={cx(classes.monthContol, {
         [classes.monthContolActive]: isMonthSelected(value, month.date),
       })}
-      key={month.id}
       type="button"
       onClick={() => onChange(new Date(month.date))}
     >
