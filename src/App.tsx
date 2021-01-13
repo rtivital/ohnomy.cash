@@ -14,10 +14,10 @@ export default function App() {
         <Switch>
           <Route path="/auth/login" component={LoginRoute} />
           <Route path="/auth/register" component={RegisterRoute} />
-          <Route>
+          <Route path="/:month?">
             <AppContainer>
               <Switch>
-                <Route exact path="/" component={HomePage} />
+                <Route path="/:month?" component={HomePage} />
               </Switch>
             </AppContainer>
           </Route>

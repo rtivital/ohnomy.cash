@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import cx from 'clsx';
+import { useClickOutside } from 'xooks';
 import { Text, DropdownBody } from '@mantine/core';
+import { CheckIcon } from '@modulz/radix-icons';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import { useLocale } from 'src/LocaleProvider';
 import groupMonths from './group-months';
 import formatMonth from './format-month';
+import isMonthSelected from './is-month-selected';
 import classes from './MonthPicker.styles.less';
 
 interface MonthPickerProps {
@@ -14,25 +17,34 @@ interface MonthPickerProps {
   onChange(value: Date): void;
 }
 
-type NormalizedData = readonly [string, Month[]];
-
 interface MonthPickerState {
   loaded: boolean;
-  data: NormalizedData[];
+  data: (readonly [string, Month[]])[];
   error: Error;
 }
 
 export default function MonthPicker({ className, value, onChange }: MonthPickerProps) {
+  const dropdownRef = useRef();
   const locale = useLocale();
   const [state, setState] = useState<MonthPickerState>({ loaded: false, data: null, error: null });
-  const [dropdownOpened, setDropdownOpened] = useState(false);
+  const [dropdownOpened, setDropdownOpened] = useState(true);
+
+  useClickOutside(dropdownRef, () => setDropdownOpened(false));
 
   const years = !state.loaded
     ? null
     : state.data.map(([year, months]) => {
         const items = months.map((month) => (
-          <button key={month.id} type="button" onClick={() => onChange(new Date(month.date))}>
-            {formatMonth({ date: month.date, locale })}
+          <button
+            key={month.id}
+            type="button"
+            onClick={() => {
+              onChange(new Date(month.date));
+              setDropdownOpened(false);
+            }}
+          >
+            <span>{formatMonth({ date: month.date, locale })}</span>
+            {isMonthSelected(value, month.date) && <CheckIcon />}
           </button>
         ));
 
@@ -63,7 +75,11 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         {formatMonth({ date: value, locale, includeYear: true })}
       </button>
 
-      {dropdownOpened && <DropdownBody>{years}</DropdownBody>}
+      {dropdownOpened && (
+        <DropdownBody elementRef={dropdownRef} className={classes.dropdown}>
+          {years}
+        </DropdownBody>
+      )}
     </div>
   );
 }
