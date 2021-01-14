@@ -1,6 +1,6 @@
 import React from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
-import { Table, Title, ActionIcon } from '@mantine/core';
+import { Table, ActionIcon } from '@mantine/core';
 import { nanoid } from 'nanoid';
 import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
@@ -57,38 +57,36 @@ export default function Incomes({
   ));
 
   return (
-    <div>
-      <Title order={4}>{t('incomes')}</Title>
-      <SectionBody>
-        <Table style={{ tableLayout: 'fixed' }}>
-          <thead>
-            <tr>
-              <th style={{ width: 120 }}>
-                {t('income')}, {t('currency', { capitalize: false })}
-              </th>
-              <th>{t('description')}</th>
-              <th style={{ width: 40 }} />
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
-        <AddTransaction
-          onClick={() =>
-            onTransactionCreate({
-              id: `create-${nanoid()}`,
-              amount: 0,
-              description: '',
-              date,
-              type: 'income',
-              category: null,
-            })
-          }
-        >
-          {t('add_income')}
-        </AddTransaction>
+    <SectionBody title={t('incomes')}>
+      <Table style={{ tableLayout: 'fixed' }}>
+        <thead>
+          <tr>
+            <th style={{ width: 120 }}>
+              {t('income')}, {t('currency', { capitalize: false })}
+            </th>
+            <th>{t('description')}</th>
+            <th style={{ width: 40 }} />
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
 
-        <TransactionsSummary amount={getTransactionsSum(data)} />
-      </SectionBody>
-    </div>
+      <AddTransaction
+        onClick={() =>
+          onTransactionCreate({
+            id: `create-${nanoid()}`,
+            amount: 0,
+            description: '',
+            date,
+            type: 'income',
+            category: null,
+          })
+        }
+      >
+        {t('add_income')}
+      </AddTransaction>
+
+      <TransactionsSummary amount={getTransactionsSum(data)} />
+    </SectionBody>
   );
 }
