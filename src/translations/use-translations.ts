@@ -1,7 +1,6 @@
 import { useLocale } from '../LocaleProvider';
 import en from './en.json';
 import ru from './ru.json';
-import { Translation } from './translation.interface';
 
 const locales = {
   en,
@@ -15,7 +14,7 @@ function capitalizeString(value: string) {
 export default function useTranslations() {
   const locale = useLocale();
 
-  return (key: keyof Translation, { capitalize = true }: { capitalize?: boolean } = {}): string => {
+  return (key: keyof typeof ru, { capitalize = true }: { capitalize?: boolean } = {}): string => {
     if (!(key.toLowerCase() in locales[locale])) {
       throw new Error(`Missing key ${key.toLowerCase()} in locale ${locale}`);
     }

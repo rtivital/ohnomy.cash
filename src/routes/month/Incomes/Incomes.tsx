@@ -58,12 +58,14 @@ export default function Incomes({
     <div>
       <Title order={4}>{t('incomes')}</Title>
       <SectionBody>
-        <Table>
+        <Table style={{ tableLayout: 'fixed' }}>
           <thead>
             <tr>
-              <th>{t('income')}</th>
+              <th style={{ width: 120 }}>
+                {t('income')}, {t('currency', { capitalize: false })}
+              </th>
               <th>{t('description')}</th>
-              <th />
+              <th style={{ width: 40 }} />
             </tr>
           </thead>
           <tbody>{rows}</tbody>

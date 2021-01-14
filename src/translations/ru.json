@@ -11,6 +11,7 @@
   "add_month": "добавить месяц",
   "description": "описание",
   "category": "категория",
+  "currency": "руб.",
 
   "spendings": "расходы",
   "spending": "расход",

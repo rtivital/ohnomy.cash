@@ -32,7 +32,7 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
 
   return (
     <div className={classes.container}>
-      <div className={classes.section}>
+      <div className={classes.section} style={{ maxWidth: 380 }}>
         <Incomes
           data={state.transactions}
           date={date}
