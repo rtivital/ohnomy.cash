@@ -43,16 +43,7 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
 
   return (
     <div className={classes.container}>
-      <div className={classes.section} style={{ maxWidth: 380 }}>
-        <Incomes
-          data={state.transactions.filter((transaction) => transaction.type === 'income')}
-          onTransactionDelete={handleTransactionDelete}
-          onTransactionUpdate={handleTransactionUpdate}
-          onTransactionCreate={handleTransactionCreate}
-        />
-      </div>
-
-      <div className={classes.section}>
+      <div className={classes.column}>
         <Spendings
           data={state.transactions.filter((transaction) => transaction.type === 'spending')}
           onTransactionDelete={handleTransactionDelete}
@@ -60,18 +51,28 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
           onTransactionCreate={handleTransactionCreate}
         />
       </div>
+      <div className={classes.column}>
+        <div className={classes.section}>
+          <Incomes
+            data={state.transactions.filter((transaction) => transaction.type === 'income')}
+            onTransactionDelete={handleTransactionDelete}
+            onTransactionUpdate={handleTransactionUpdate}
+            onTransactionCreate={handleTransactionCreate}
+          />
+        </div>
 
-      <div className={classes.section} style={{ maxWidth: 380 }}>
-        <Savings
-          data={state.transactions.filter((transaction) => transaction.type === 'saving')}
-          onTransactionDelete={handleTransactionDelete}
-          onTransactionUpdate={handleTransactionUpdate}
-          onTransactionCreate={handleTransactionCreate}
-        />
-      </div>
+        <div className={classes.section}>
+          <Savings
+            data={state.transactions.filter((transaction) => transaction.type === 'saving')}
+            onTransactionDelete={handleTransactionDelete}
+            onTransactionUpdate={handleTransactionUpdate}
+            onTransactionCreate={handleTransactionCreate}
+          />
+        </div>
 
-      <div className={classes.section}>
-        <Summary />
+        <div className={classes.section}>
+          <Summary />
+        </div>
       </div>
     </div>
   );
