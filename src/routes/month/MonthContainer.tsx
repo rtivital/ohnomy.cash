@@ -16,9 +16,11 @@ interface MonthContainerProps {
 export default function MonthContainer({ transactions, cacheUrl }: MonthContainerProps) {
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
 
-  const handleTransactionDelete = (transaction: Transaction) => {
+  const handleTransactionDelete = (transaction: Transaction) =>
     dispatch({ type: 'DELETE_TRANSACTION', transaction });
-  };
+
+  const handleTransactionUpdate = (transaction: Transaction) =>
+    dispatch({ type: 'UPDATE_TRANSACTION', transaction });
 
   useEffect(() => {
     client.updateCache(cacheUrl, state.transactions);
@@ -27,7 +29,11 @@ export default function MonthContainer({ transactions, cacheUrl }: MonthContaine
   return (
     <div className={classes.container}>
       <div className={classes.section}>
-        <Incomes data={state.transactions} onTransactionDelete={handleTransactionDelete} />
+        <Incomes
+          data={state.transactions}
+          onTransactionDelete={handleTransactionDelete}
+          onTransactionUpdate={handleTransactionUpdate}
+        />
       </div>
       <div className={classes.section}>
         <Spendings />

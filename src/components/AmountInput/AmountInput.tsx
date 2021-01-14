@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 import useFocusProp from 'src/hooks/use-focus-prop';
 import { useLocale } from 'src/LocaleProvider';
 import classes from './AmountInput.styles.less';
@@ -17,16 +16,14 @@ function extractFormattedNumber(string: string) {
 
 interface AmountInputProps {
   value: string;
-  allowNegative: boolean;
-  focus: boolean;
+  allowNegative?: boolean;
+  focus?: boolean;
   onChange(value: string): void;
-  onEnter(): void;
 }
 
 export default function AmountInput({
   value,
   onChange,
-  onEnter,
   allowNegative = false,
   focus = false,
 }: AmountInputProps) {
@@ -53,20 +50,6 @@ export default function AmountInput({
       }
       onFocus={(event) => event.target.value === '0' && onChange('')}
       onBlur={(event) => event.target.value.trim() === '' && onChange((0).toString())}
-      onKeyDown={(event) => {
-        if (event.nativeEvent.code === 'Enter') {
-          event.preventDefault();
-          onEnter();
-        }
-      }}
     />
   );
 }
-
-AmountInput.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onEnter: PropTypes.func.isRequired,
-  focus: PropTypes.bool,
-  allowNegative: PropTypes.bool,
-};
