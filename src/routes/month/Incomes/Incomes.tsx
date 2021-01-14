@@ -1,6 +1,6 @@
 import React from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
-import { Table, ActionIcon } from '@mantine/core';
+import { Table, Text, ActionIcon } from '@mantine/core';
 import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/components/AddTransaction/AddTransaction';
@@ -48,24 +48,30 @@ export default function Incomes({
 
   return (
     <SectionBody title={t('incomes')}>
-      <Table style={{ tableLayout: 'fixed' }}>
-        <thead>
-          <tr>
-            <th style={{ width: 120 }}>
-              {t('income')}, {t('currency', { capitalize: false })}
-            </th>
-            <th>{t('description')}</th>
-            <th style={{ width: 40 }} />
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      {data.length > 0 ? (
+        <Table style={{ tableLayout: 'fixed' }}>
+          <thead>
+            <tr>
+              <th style={{ width: 120 }}>
+                {t('income')}, {t('currency', { capitalize: false })}
+              </th>
+              <th>{t('description')}</th>
+              <th style={{ width: 40 }} />
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      ) : (
+        <Text theme="muted" style={{ textAlign: 'center' }}>
+          {t('no_income')}
+        </Text>
+      )}
 
       <AddTransaction onClick={() => onTransactionCreate('income')}>
         {t('add_income')}
       </AddTransaction>
 
-      <TransactionsSummary amount={getTransactionsSum(data)} />
+      {data.length > 0 && <TransactionsSummary amount={getTransactionsSum(data)} />}
     </SectionBody>
   );
 }
