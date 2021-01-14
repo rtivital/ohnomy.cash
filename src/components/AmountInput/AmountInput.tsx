@@ -18,12 +18,14 @@ interface AmountInputProps {
   value: string;
   allowNegative?: boolean;
   focus?: boolean;
+  onFocus?(): void;
   onChange(value: string): void;
 }
 
 export default function AmountInput({
   value,
   onChange,
+  onFocus,
   allowNegative = false,
   focus = false,
 }: AmountInputProps) {
@@ -48,8 +50,8 @@ export default function AmountInput({
               ).toString()
             )
       }
-      onFocus={(event) => event.target.value === '0' && onChange('')}
-      onBlur={(event) => event.target.value.trim() === '' && onChange((0).toString())}
+      onFocus={() => typeof onFocus === 'function' && onFocus()}
+      onBlur={(event) => event.target.value.trim() === '' && onChange('0')}
     />
   );
 }

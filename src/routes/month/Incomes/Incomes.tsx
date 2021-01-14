@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
 import { Table, Text, ActionIcon } from '@mantine/core';
 import AmountInput from 'src/components/AmountInput/AmountInput';
@@ -17,12 +17,15 @@ export default function Incomes({
   onTransactionCreate,
 }: BaseTransationEditorProps) {
   const t = useTranslations();
+  const [focused, setFocused] = useState(-1);
 
-  const rows = data.map((transaction) => (
+  const rows = data.map((transaction, index) => (
     <tr key={transaction.id}>
       <td>
         <AmountInput
+          focus={focused === index}
           value={transaction.amount.toString()}
+          onFocus={() => setFocused(-1)}
           onChange={(value) =>
             onTransactionUpdate({
               ...transaction,
@@ -67,7 +70,12 @@ export default function Incomes({
         </Text>
       )}
 
-      <AddTransaction onClick={() => onTransactionCreate('income')}>
+      <AddTransaction
+        onClick={() => {
+          onTransactionCreate('income');
+          setFocused(data.length);
+        }}
+      >
         {t('add_income')}
       </AddTransaction>
 
