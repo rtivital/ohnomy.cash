@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { nanoid } from 'nanoid';
 import { Transaction } from 'src/api/types';
 import client from 'src/api/client';
 import Spendings from './Spendings/Spendings';
@@ -23,8 +24,18 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
   const handleTransactionUpdate = (transaction: Transaction) =>
     dispatch({ type: 'UPDATE_TRANSACTION', transaction });
 
-  const handleTransactionCreate = (transaction: Transaction) =>
-    dispatch({ type: 'ADD_TRANSACTION', transaction });
+  const handleTransactionCreate = (type: Transaction['type']) =>
+    dispatch({
+      type: 'ADD_TRANSACTION',
+      transaction: {
+        id: `create-${nanoid()}`,
+        amount: 0,
+        description: '',
+        date,
+        type,
+        category: null,
+      },
+    });
 
   useEffect(() => {
     client.updateCache(cacheUrl, state.transactions);
@@ -35,7 +46,6 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
       <div className={classes.section} style={{ maxWidth: 380 }}>
         <Incomes
           data={state.transactions}
-          date={date}
           onTransactionDelete={handleTransactionDelete}
           onTransactionUpdate={handleTransactionUpdate}
           onTransactionCreate={handleTransactionCreate}
