@@ -55,7 +55,7 @@ export default function Incomes({
         <Table style={{ tableLayout: 'fixed' }}>
           <thead>
             <tr>
-              <th style={{ width: 120 }}>
+              <th style={{ width: 130 }}>
                 {t('income')}, {t('currency', { capitalize: false })}
               </th>
               <th>{t('description')}</th>

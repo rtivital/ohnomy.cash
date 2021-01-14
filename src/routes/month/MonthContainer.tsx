@@ -45,18 +45,26 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
     <div className={classes.container}>
       <div className={classes.section} style={{ maxWidth: 380 }}>
         <Incomes
-          data={state.transactions}
+          data={state.transactions.filter((transaction) => transaction.type === 'income')}
           onTransactionDelete={handleTransactionDelete}
           onTransactionUpdate={handleTransactionUpdate}
           onTransactionCreate={handleTransactionCreate}
         />
       </div>
+
       <div className={classes.section}>
         <Spendings />
       </div>
-      <div className={classes.section}>
-        <Savings />
+
+      <div className={classes.section} style={{ maxWidth: 380 }}>
+        <Savings
+          data={state.transactions.filter((transaction) => transaction.type === 'saving')}
+          onTransactionDelete={handleTransactionDelete}
+          onTransactionUpdate={handleTransactionUpdate}
+          onTransactionCreate={handleTransactionCreate}
+        />
       </div>
+
       <div className={classes.section}>
         <Summary />
       </div>

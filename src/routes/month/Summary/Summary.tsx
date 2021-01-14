@@ -1,5 +1,8 @@
 import React from 'react';
+import useTranslations from 'src/translations/use-translations';
+import SectionBody from '../SectionBody/SectionBody';
 
 export default function Summary() {
-  return <div>Summary</div>;
+  const t = useTranslations();
+  return <SectionBody title={t('summary')}>Summary</SectionBody>;
 }
