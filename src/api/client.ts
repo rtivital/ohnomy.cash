@@ -2,13 +2,16 @@ import axios, { AxiosInstance } from 'axios';
 
 const JWT_KEY = '@onhomycash/jwt';
 
-class AxiosClient {
+class Client {
+  private cache: Record<string, any>;
   private baseURL: string;
   axios: AxiosInstance;
 
   constructor(baseURL: string) {
-    const token = localStorage.getItem(JWT_KEY);
+    this.cache = {};
     this.baseURL = baseURL;
+
+    const token = localStorage.getItem(JWT_KEY);
 
     this.axios = axios.create({
       baseURL,
@@ -30,6 +33,21 @@ class AxiosClient {
 
     localStorage.setItem(JWT_KEY, token);
   }
+
+  async refetch<T>(url: string): Promise<T> {
+    return this.axios.get<T>(url).then((response) => {
+      this.cache[url] = response.data;
+      return response.data;
+    });
+  }
+
+  async get<T>(url: string): Promise<T> {
+    if (url in this.cache) {
+      return this.cache[url];
+    }
+
+    return this.refetch<T>(url);
+  }
 }
 
-export default new AxiosClient(process.env.API_URL);
+export default new Client(process.env.API_URL);

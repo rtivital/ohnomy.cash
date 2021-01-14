@@ -20,9 +20,9 @@ export default function MonthRoute() {
   useEffect(() => {
     setState({ loaded: false, error: null, data: null });
 
-    client.axios
+    client
       .get<Transaction[]>(`/transactions?month=${date.toISOString()}`)
-      .then((response) => setState({ loaded: true, error: null, data: response.data }))
+      .then((data) => setState({ loaded: true, error: null, data }))
       .catch((error) => setState({ loaded: false, error, data: null }));
   }, [month]);
 
