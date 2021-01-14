@@ -15,6 +15,7 @@ interface MonthContainerProps {
 
 export default function MonthContainer({ transactions, cacheUrl }: MonthContainerProps) {
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
+
   const handleTransactionDelete = (transaction: Transaction) => {
     dispatch({ type: 'DELETE_TRANSACTION', transaction });
   };
