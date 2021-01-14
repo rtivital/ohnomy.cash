@@ -2,6 +2,7 @@ import React from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
 import { Table, Title, ActionIcon } from '@mantine/core';
 import AmountInput from 'src/components/AmountInput/AmountInput';
+import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
 import { Transaction } from 'src/api/types';
 import useTranslations from 'src/translations/use-translations';
 import SectionBody from '../SectionBody/SectionBody';
@@ -28,7 +29,13 @@ export default function Incomes({ data, onTransactionDelete, onTransactionUpdate
           }
         />
       </td>
-      <td>{transaction.description}</td>
+      <td>
+        <DescriptionInput
+          placeholder={t('description')}
+          value={transaction.description}
+          onChange={(value) => onTransactionUpdate({ ...transaction, description: value })}
+        />
+      </td>
       <td>
         <ActionIcon theme="danger" onClick={() => onTransactionDelete(transaction)}>
           <TrashIcon />
