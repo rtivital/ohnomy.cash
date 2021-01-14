@@ -7,9 +7,10 @@ import SectionBody from '../SectionBody/SectionBody';
 
 interface IncomesProps {
   data: Transaction[];
+  onTransactionDelete(transaction: Transaction): void;
 }
 
-export default function Incomes({ data }: IncomesProps) {
+export default function Incomes({ data, onTransactionDelete }: IncomesProps) {
   const t = useTranslations();
 
   const rows = data.map((transaction) => (
@@ -17,7 +18,7 @@ export default function Incomes({ data }: IncomesProps) {
       <td>{transaction.amount}</td>
       <td>{transaction.description}</td>
       <td>
-        <ActionIcon theme="danger">
+        <ActionIcon theme="danger" onClick={() => onTransactionDelete(transaction)}>
           <TrashIcon />
         </ActionIcon>
       </td>

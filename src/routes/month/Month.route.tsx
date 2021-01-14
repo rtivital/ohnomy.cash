@@ -16,12 +16,13 @@ export default function MonthRoute() {
   const { month } = useParams<{ month: string }>();
   const date = month ? new Date(month) : START_OF_MONTH;
   const [state, setState] = useState<MonthRouteState>({ loaded: false, error: null, data: null });
+  const url = `/transactions?month=${date.toISOString()}`;
 
   useEffect(() => {
     setState({ loaded: false, error: null, data: null });
 
     client
-      .get<Transaction[]>(`/transactions?month=${date.toISOString()}`)
+      .get<Transaction[]>(url)
       .then((data) => setState({ loaded: true, error: null, data }))
       .catch((error) => setState({ loaded: false, error, data: null }));
   }, [month]);
@@ -34,5 +35,5 @@ export default function MonthRoute() {
     return <div>Error</div>;
   }
 
-  return <MonthContainer transactions={state.data} />;
+  return <MonthContainer transactions={state.data} cacheUrl={url} />;
 }
