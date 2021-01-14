@@ -1,12 +1,14 @@
 import React from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
 import { Table, Title, ActionIcon } from '@mantine/core';
+import { nanoid } from 'nanoid';
 import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/components/AddTransaction/AddTransaction';
+import TransactionsSummary from 'src/components/TransactionsSummary/TransactionsSummary';
 import { Transaction } from 'src/api/types';
 import useTranslations from 'src/translations/use-translations';
-import { nanoid } from 'nanoid';
+import getTransactionsSum from '../get-transactions-sum';
 import SectionBody from '../SectionBody/SectionBody';
 
 interface IncomesProps {
@@ -84,6 +86,8 @@ export default function Incomes({
         >
           {t('add_income')}
         </AddTransaction>
+
+        <TransactionsSummary amount={getTransactionsSum(data)} />
       </SectionBody>
     </div>
   );

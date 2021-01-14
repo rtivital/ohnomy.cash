@@ -10,8 +10,10 @@ interface AddTransactionProps {
 
 export default function AddTransaction({ className, children, onClick }: AddTransactionProps) {
   return (
-    <button className={cx(classes.addTransaction, className)} type="button" onClick={onClick}>
-      + {children}
-    </button>
+    <div className={cx(classes.addTransactionWrapper, className)}>
+      <button className={classes.addTransaction} type="button" onClick={onClick}>
+        + {children}
+      </button>
+    </div>
   );
 }
