@@ -5,24 +5,17 @@ import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/components/AddTransaction/AddTransaction';
 import TransactionsSummary from 'src/components/TransactionsSummary/TransactionsSummary';
-import { Transaction } from 'src/api/types';
 import useTranslations from 'src/translations/use-translations';
 import getTransactionsSum from '../get-transactions-sum';
 import SectionBody from '../SectionBody/SectionBody';
-
-interface IncomesProps {
-  data: Transaction[];
-  onTransactionDelete(transaction: Transaction): void;
-  onTransactionUpdate(transaction: Transaction): void;
-  onTransactionCreate(type: Transaction['type']): void;
-}
+import { BaseTransationEditorProps } from '../types';
 
 export default function Incomes({
   data,
   onTransactionDelete,
   onTransactionUpdate,
   onTransactionCreate,
-}: IncomesProps) {
+}: BaseTransationEditorProps) {
   const t = useTranslations();
 
   const rows = data.map((transaction) => (
