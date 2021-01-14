@@ -37,5 +37,18 @@
   "incomes_spendings_diff": "доходы - расходы",
   "balance_month_start": "баланс на начало месяца",
   "balance_month_end": "баланс на конец месяца",
-  "total_savings": "всего отложено"
+  "total_savings": "всего отложено",
+
+  "red": "красный",
+  "pink": "розовый",
+  "grape": "пурпурный",
+  "purple": "фиолетовый",
+  "indigo": "индиго",
+  "blue": "синий",
+  "cyan": "бирюзовый",
+  "teal": "изумрудный",
+  "green": "зелёный",
+  "lime": "лайм",
+  "yellow": "жёлтый",
+  "oragne": "оранжевый"
 }
