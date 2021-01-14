@@ -11,9 +11,10 @@ import classes from './Month.styles.less';
 interface MonthContainerProps {
   transactions: Transaction[];
   cacheUrl: string;
+  date: string;
 }
 
-export default function MonthContainer({ transactions, cacheUrl }: MonthContainerProps) {
+export default function MonthContainer({ transactions, cacheUrl, date }: MonthContainerProps) {
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
 
   const handleTransactionDelete = (transaction: Transaction) =>
@@ -21,6 +22,9 @@ export default function MonthContainer({ transactions, cacheUrl }: MonthContaine
 
   const handleTransactionUpdate = (transaction: Transaction) =>
     dispatch({ type: 'UPDATE_TRANSACTION', transaction });
+
+  const handleTransactionCreate = (transaction: Transaction) =>
+    dispatch({ type: 'ADD_TRANSACTION', transaction });
 
   useEffect(() => {
     client.updateCache(cacheUrl, state.transactions);
@@ -31,8 +35,10 @@ export default function MonthContainer({ transactions, cacheUrl }: MonthContaine
       <div className={classes.section}>
         <Incomes
           data={state.transactions}
+          date={date}
           onTransactionDelete={handleTransactionDelete}
           onTransactionUpdate={handleTransactionUpdate}
+          onTransactionCreate={handleTransactionCreate}
         />
       </div>
       <div className={classes.section}>

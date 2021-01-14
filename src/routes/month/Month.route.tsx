@@ -35,5 +35,5 @@ export default function MonthRoute() {
     return <div>Error</div>;
   }
 
-  return <MonthContainer transactions={state.data} cacheUrl={url} />;
+  return <MonthContainer transactions={state.data} cacheUrl={url} date={date.toISOString()} />;
 }

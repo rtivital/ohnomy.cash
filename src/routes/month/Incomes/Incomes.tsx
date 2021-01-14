@@ -3,17 +3,27 @@ import { TrashIcon } from '@modulz/radix-icons';
 import { Table, Title, ActionIcon } from '@mantine/core';
 import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
+import AddTransaction from 'src/components/AddTransaction/AddTransaction';
 import { Transaction } from 'src/api/types';
 import useTranslations from 'src/translations/use-translations';
+import { nanoid } from 'nanoid';
 import SectionBody from '../SectionBody/SectionBody';
 
 interface IncomesProps {
   data: Transaction[];
+  date: string;
   onTransactionDelete(transaction: Transaction): void;
   onTransactionUpdate(transaction: Transaction): void;
+  onTransactionCreate(transaction: Transaction): void;
 }
 
-export default function Incomes({ data, onTransactionDelete, onTransactionUpdate }: IncomesProps) {
+export default function Incomes({
+  data,
+  date,
+  onTransactionDelete,
+  onTransactionUpdate,
+  onTransactionCreate,
+}: IncomesProps) {
   const t = useTranslations();
 
   const rows = data.map((transaction) => (
@@ -58,6 +68,20 @@ export default function Incomes({ data, onTransactionDelete, onTransactionUpdate
           </thead>
           <tbody>{rows}</tbody>
         </Table>
+        <AddTransaction
+          onClick={() =>
+            onTransactionCreate({
+              id: `create-${nanoid()}`,
+              amount: 0,
+              description: '',
+              date,
+              type: 'income',
+              category: null,
+            })
+          }
+        >
+          {t('add_income')}
+        </AddTransaction>
       </SectionBody>
     </div>
   );
