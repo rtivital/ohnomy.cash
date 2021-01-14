@@ -48,6 +48,10 @@ class Client {
 
     return this.refetch<T>(url);
   }
+
+  updateCache(url: string, value: any) {
+    this.cache[url] = value;
+  }
 }
 
 export default new Client(process.env.API_URL);
