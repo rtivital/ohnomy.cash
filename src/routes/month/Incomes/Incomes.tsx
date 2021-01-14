@@ -30,9 +30,11 @@ export default function Incomes({ data }: IncomesProps) {
       <SectionBody>
         <Table>
           <thead>
-            <th>{t('income')}</th>
-            <th>{t('description')}</th>
-            <th />
+            <tr>
+              <th>{t('income')}</th>
+              <th>{t('description')}</th>
+              <th />
+            </tr>
           </thead>
           <tbody>{rows}</tbody>
         </Table>
