@@ -128,7 +128,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(mode),
-      'process.env.API_URL': JSON.stringify('http://localhost:4005'),
+      'process.env.API_URL': JSON.stringify(
+        process.env.NODE_ENV === 'production'
+          ? 'http://ohnomycash.eu-4.evennode.com/'
+          : 'http://localhost:4005/'
+      ),
     }),
     new FaviconsWebpackPlugin({
       logo: path.join(__dirname, './favicon.png'),
