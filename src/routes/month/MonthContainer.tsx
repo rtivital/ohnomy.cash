@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { nanoid } from 'nanoid';
+import { ObjectId } from 'bson';
 import { Transaction } from 'src/api/types';
 import client from 'src/api/client';
 import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
@@ -42,7 +42,7 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
 
   const handleTransactionCreate = (type: Transaction['type']) => {
     const transaction = {
-      id: `create-${nanoid()}`,
+      id: new ObjectId().toHexString(),
       amount: 0,
       description: '',
       date,

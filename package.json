@@ -29,6 +29,7 @@
     "@mantine/tag-picker": "^0.1.0",
     "@modulz/radix-icons": "^3.3.0",
     "axios": "^0.21.1",
+    "bson": "^4.2.2",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "enzyme-adapter-react-16": "^1.15.4",
