@@ -39,6 +39,7 @@ export default function Spendings({
     const category = { ...payload, id: new ObjectID().toHexString() };
     setCategories((current) => [...current, category]);
     scheduledRequests.addScheduledRequest({
+      immediate: true,
       id: category.id,
       type: 'create',
       url: '/categories',

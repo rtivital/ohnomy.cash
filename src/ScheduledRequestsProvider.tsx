@@ -18,6 +18,7 @@ interface ScheduledRequestsProviderProps {
 }
 
 interface ScheduledRequest {
+  immediate?: boolean;
   id: string;
   type: 'create' | 'update' | 'delete';
   payload: any;
@@ -40,16 +41,16 @@ export function useScheduledRequests() {
   return context;
 }
 
-async function sendRequests(requests: ScheduledRequest[], onFinish: () => void) {
-  const savingRequests = requests.map((request) =>
-    client.axios({
-      url: request.url,
-      method: METHODS[request.type],
-      data: request.payload,
-    })
-  );
+function sendRequest(request: ScheduledRequest) {
+  return client.axios({
+    url: request.url,
+    method: METHODS[request.type],
+    data: request.payload,
+  });
+}
 
-  await Promise.all(savingRequests);
+async function sendRequests(requests: ScheduledRequest[], onFinish: () => void) {
+  await Promise.all(requests.map(sendRequest));
   onFinish();
 }
 
@@ -76,36 +77,43 @@ export function ScheduledRequestsProvider({ children }: ScheduledRequestsProvide
   const addScheduledRequest = (request: ScheduledRequest) => {
     window.clearTimeout(saveTimeoutRef.current);
 
-    setRequests((currentRequests) => {
-      const intersectedRequest = currentRequests.find((req) => req.id === request.id);
+    if (request.immediate) {
+      setScheduled((current) => [...current, request]);
+      sendRequest(request).then(() =>
+        setScheduled((current) => current.filter((req) => req.id !== request.id))
+      );
+    } else {
+      setRequests((currentRequests) => {
+        const intersectedRequest = currentRequests.find((req) => req.id === request.id);
 
-      if (!intersectedRequest) {
-        return [...currentRequests, request];
-      }
+        if (!intersectedRequest) {
+          return [...currentRequests, request];
+        }
 
-      if (intersectedRequest.type === 'create' && request.type === 'update') {
-        return currentRequests
-          .filter((req) => req.id !== request.id)
-          .concat({
-            ...request,
-            type: 'create',
-          });
-      }
+        if (intersectedRequest.type === 'create' && request.type === 'update') {
+          return currentRequests
+            .filter((req) => req.id !== request.id)
+            .concat({
+              ...request,
+              type: 'create',
+            });
+        }
 
-      if (intersectedRequest.type === 'create' && request.type === 'delete') {
-        return currentRequests.filter((req) => req.id !== request.id);
-      }
+        if (intersectedRequest.type === 'create' && request.type === 'delete') {
+          return currentRequests.filter((req) => req.id !== request.id);
+        }
 
-      if (intersectedRequest.type === 'update' && request.type === 'delete') {
-        return currentRequests.filter((req) => req.id !== request.id);
-      }
+        if (intersectedRequest.type === 'update' && request.type === 'delete') {
+          return currentRequests.filter((req) => req.id !== request.id);
+        }
 
-      if (intersectedRequest.type === 'update' && request.type === 'update') {
-        return currentRequests.filter((req) => req.id !== request.id).concat(request);
-      }
+        if (intersectedRequest.type === 'update' && request.type === 'update') {
+          return currentRequests.filter((req) => req.id !== request.id).concat(request);
+        }
 
-      return currentRequests;
-    });
+        return currentRequests;
+      });
+    }
   };
 
   return (
