@@ -56,13 +56,15 @@ export default function Spendings({
       {data.length > 0 ? (
         <Table>
           <thead>
-            <th>
-              {t('spending')}, {t('currency')}
-            </th>
-            <th>{t('category')}</th>
-            <th>{t('date')}</th>
-            <th>{t('description')}</th>
-            <th />
+            <tr>
+              <th>
+                {t('spending')}, {t('currency')}
+              </th>
+              <th>{t('category')}</th>
+              <th>{t('date')}</th>
+              <th>{t('description')}</th>
+              <th />
+            </tr>
           </thead>
           <tbody>{rows}</tbody>
         </Table>
