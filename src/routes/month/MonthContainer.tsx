@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { nanoid } from 'nanoid';
 import { Transaction } from 'src/api/types';
 import client from 'src/api/client';
+import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
 import Spendings from './Spendings/Spendings';
 import Savings from './Savings/Savings';
 import Incomes from './Incomes/Incomes';
@@ -16,26 +17,47 @@ interface MonthContainerProps {
 }
 
 export default function MonthContainer({ transactions, cacheUrl, date }: MonthContainerProps) {
+  const scheduledRequests = useScheduledRequests();
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
 
-  const handleTransactionDelete = (transaction: Transaction) =>
+  const handleTransactionDelete = (transaction: Transaction) => {
     dispatch({ type: 'DELETE_TRANSACTION', transaction });
-
-  const handleTransactionUpdate = (transaction: Transaction) =>
-    dispatch({ type: 'UPDATE_TRANSACTION', transaction });
-
-  const handleTransactionCreate = (type: Transaction['type']) =>
-    dispatch({
-      type: 'ADD_TRANSACTION',
-      transaction: {
-        id: `create-${nanoid()}`,
-        amount: 0,
-        description: '',
-        date,
-        type,
-        category: null,
-      },
+    scheduledRequests.addScheduledRequest({
+      id: transaction.id,
+      type: 'delete',
+      url: '/transactions',
+      payload: { id: transaction.id },
     });
+  };
+
+  const handleTransactionUpdate = (transaction: Transaction) => {
+    dispatch({ type: 'UPDATE_TRANSACTION', transaction });
+    scheduledRequests.addScheduledRequest({
+      id: transaction.id,
+      type: 'update',
+      url: '/transactions',
+      payload: transaction,
+    });
+  };
+
+  const handleTransactionCreate = (type: Transaction['type']) => {
+    const transaction = {
+      id: `create-${nanoid()}`,
+      amount: 0,
+      description: '',
+      date,
+      type,
+      category: null,
+    };
+
+    dispatch({ type: 'ADD_TRANSACTION', transaction });
+    scheduledRequests.addScheduledRequest({
+      id: transaction.id,
+      type: 'create',
+      url: '/transactions',
+      payload: transaction,
+    });
+  };
 
   useEffect(() => {
     client.updateCache(cacheUrl, state.transactions);

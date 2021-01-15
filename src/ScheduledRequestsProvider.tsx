@@ -1,14 +1,16 @@
-import React, { useState, useRef, useContext, createContext } from 'react';
+import React, { useState, useRef, useEffect, useContext, createContext } from 'react';
 import client from 'src/api/client';
 
 const ScheduledRequestsContext = createContext<{
   saving: boolean;
   addScheduledRequest(request: ScheduledRequest): void;
   requests: ScheduledRequest[];
+  scheduled: ScheduledRequest[];
 }>({
   saving: false,
   addScheduledRequest: (f) => f,
   requests: [],
+  scheduled: [],
 });
 
 interface ScheduledRequestsProviderProps {
@@ -38,28 +40,38 @@ export function useScheduledRequests() {
   return context;
 }
 
+async function sendRequests(requests: ScheduledRequest[], onFinish: () => void) {
+  const savingRequests = requests.map((request) =>
+    client.axios({
+      url: request.url,
+      method: METHODS[request.type],
+      data: request.payload,
+    })
+  );
+
+  await Promise.all(savingRequests);
+  onFinish();
+}
+
 export function ScheduledRequestsProvider({ children }: ScheduledRequestsProviderProps) {
   const saveTimeoutRef = useRef(-1);
   const [requests, setRequests] = useState<ScheduledRequest[]>([]);
+  const [scheduled, setScheduled] = useState<ScheduledRequest[]>([]);
   const [saving, setSaving] = useState(false);
 
-  const handleSave = () => {
-    saveTimeoutRef.current = window.setTimeout(async () => {
-      setSaving(true);
-
-      const savingRequests = requests.map((request) =>
-        client.axios({
-          method: METHODS[request.type],
-          data: request.payload,
-        })
-      );
-
-      setRequests([]);
-
-      await Promise.all(savingRequests);
-      setSaving(false);
-    }, 5000);
-  };
+  useEffect(() => {
+    if (requests.length > 0) {
+      saveTimeoutRef.current = window.setTimeout(() => {
+        setSaving(true);
+        setScheduled(requests);
+        setRequests([]);
+        sendRequests(requests, () => {
+          setSaving(false);
+          setScheduled([]);
+        });
+      }, 3500);
+    }
+  }, [requests]);
 
   const addScheduledRequest = (request: ScheduledRequest) => {
     window.clearTimeout(saveTimeoutRef.current);
@@ -94,12 +106,10 @@ export function ScheduledRequestsProvider({ children }: ScheduledRequestsProvide
 
       return currentRequests;
     });
-
-    handleSave();
   };
 
   return (
-    <ScheduledRequestsContext.Provider value={{ saving, addScheduledRequest, requests }}>
+    <ScheduledRequestsContext.Provider value={{ saving, addScheduledRequest, requests, scheduled }}>
       {children}
     </ScheduledRequestsContext.Provider>
   );
