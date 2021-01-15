@@ -1,6 +1,5 @@
 import oc from 'open-color';
 import React from 'react';
-import { nanoid } from 'nanoid';
 import { TagPicker, TagPickerTag } from '@mantine/tag-picker';
 import useTranslations from 'src/translations/use-translations';
 
@@ -23,7 +22,7 @@ interface CategoryPickerProps {
   data: TagPickerTag[];
   value: TagPickerTag;
   onChange(value: TagPickerTag): void;
-  onCategoryCreate(values: TagPickerTag): void;
+  onCategoryCreate(values: TagPickerTag): TagPickerTag;
   onCategoryDelete(id: string): void;
   onCategoryUpdate(id: string, values: Omit<TagPickerTag, 'id'>): void;
 }
@@ -49,7 +48,7 @@ export default function CategoryPicker({
       createLabel={`+ ${t('create_category')}`}
       deleteLabel={t('delete_category')}
       noValueLabel={t('category_not_selected')}
-      onTagCreate={(values) => onCategoryCreate({ ...values, id: `category-created-${nanoid()}` })}
+      onTagCreate={onCategoryCreate}
       onTagDelete={onCategoryDelete}
       onTagUpdate={onCategoryUpdate}
     />

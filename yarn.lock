@@ -835,9 +835,9 @@
   integrity sha512-dzkkBzNpfTq7ndOVg07L45jwiyDdDsbYHcIn/7TCa8FCjjoj8KM9QMnD2Tg8bORHnYFZgqAa41XsX0gXv/OynQ==
 
 "@mantine/tag-picker@^0.1.0":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@mantine/tag-picker/-/tag-picker-0.1.2.tgz#e3be736aa36f217a1504b11553eae2c163621150"
-  integrity sha512-1X0AiBwHUpQSeIVZ8KCRpzur2m0tKbKDT4Cu7t3USwuCYNSC2pSh2hTJX0UFf4WS00JfVqgxbBwk8BqC/s/nYQ==
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@mantine/tag-picker/-/tag-picker-0.1.3.tgz#16e926cf0d032e5bc240c390e1d555df9463929e"
+  integrity sha512-2zhiAVA2zCSe6g4sXU4+W6OImBtkbXRLTzafub181JEM+LcCfuapNwR3N4au1Nbg0tDV4dxtckgU3KTqTgtRBg==
 
 "@modulz/radix-icons@^3.3.0":
   version "3.3.0"
