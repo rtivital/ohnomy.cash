@@ -54,16 +54,16 @@ export default function Spendings({
   return (
     <SectionBody title={t('spendings')}>
       {data.length > 0 ? (
-        <Table>
+        <Table style={{ tableLayout: 'fixed' }}>
           <thead>
             <tr>
-              <th>
-                {t('spending')}, {t('currency')}
+              <th style={{ width: 130 }}>
+                {t('spending')}, {t('currency', { capitalize: false })}
               </th>
-              <th>{t('category')}</th>
-              <th>{t('date')}</th>
+              <th style={{ width: 130 }}>{t('category')}</th>
+              <th style={{ width: 130 }}>{t('date')}</th>
               <th>{t('description')}</th>
-              <th />
+              <th style={{ width: 40 }} />
             </tr>
           </thead>
           <tbody>{rows}</tbody>
