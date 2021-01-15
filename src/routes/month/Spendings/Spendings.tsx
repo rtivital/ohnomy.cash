@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, ActionIcon, Text } from '@mantine/core';
 import { TrashIcon } from '@modulz/radix-icons';
+import { Category } from 'src/api/types';
 import useTranslations from 'src/translations/use-translations';
 import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
@@ -9,13 +10,19 @@ import TransactionsSummary from 'src/components/TransactionsSummary/Transactions
 import SectionBody from '../SectionBody/SectionBody';
 import getTransactionsSum from '../get-transactions-sum';
 import { BaseTransationEditorProps } from '../types';
+import CategoryPicker from './CategoryPicker';
+
+interface SpendingsProps extends BaseTransationEditorProps {
+  categories: Category[];
+}
 
 export default function Spendings({
   data,
+  categories,
   onTransactionDelete,
   onTransactionUpdate,
   onTransactionCreate,
-}: BaseTransationEditorProps) {
+}: SpendingsProps) {
   const [focused, setFocused] = useState(-1);
   const t = useTranslations();
 
@@ -34,7 +41,16 @@ export default function Spendings({
           }
         />
       </td>
-      <td>Category</td>
+      <td>
+        <CategoryPicker
+          value={transaction.category}
+          onChange={(category) => onTransactionUpdate({ ...transaction, category })}
+          data={categories}
+          onCategoryCreate={(f) => f}
+          onCategoryUpdate={(f) => f}
+          onCategoryDelete={(f) => f}
+        />
+      </td>
       <td>Date</td>
       <td>
         <DescriptionInput

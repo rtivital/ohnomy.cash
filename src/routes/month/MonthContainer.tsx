@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { ObjectId } from 'bson';
-import { Transaction } from 'src/api/types';
+import { Category, Transaction } from 'src/api/types';
 import client from 'src/api/client';
 import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
 import Spendings from './Spendings/Spendings';
@@ -12,11 +12,21 @@ import classes from './Month.styles.less';
 
 interface MonthContainerProps {
   transactions: Transaction[];
+  categories: Category[];
   cacheUrl: string;
   date: string;
 }
 
-export default function MonthContainer({ transactions, cacheUrl, date }: MonthContainerProps) {
+function transformTransactionCategory(transaction: Transaction) {
+  return transaction.category ? { ...transaction, category: transaction.category.id } : transaction;
+}
+
+export default function MonthContainer({
+  transactions,
+  categories,
+  cacheUrl,
+  date,
+}: MonthContainerProps) {
   const scheduledRequests = useScheduledRequests();
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
 
@@ -36,7 +46,7 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
       id: transaction.id,
       type: 'update',
       url: '/transactions',
-      payload: transaction,
+      payload: transformTransactionCategory(transaction),
     });
   };
 
@@ -55,7 +65,7 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
       id: transaction.id,
       type: 'create',
       url: '/transactions',
-      payload: transaction,
+      payload: transformTransactionCategory(transaction),
     });
   };
 
@@ -68,6 +78,7 @@ export default function MonthContainer({ transactions, cacheUrl, date }: MonthCo
       <div className={classes.column}>
         <Spendings
           data={state.transactions.filter((transaction) => transaction.type === 'spending')}
+          categories={categories}
           onTransactionDelete={handleTransactionDelete}
           onTransactionUpdate={handleTransactionUpdate}
           onTransactionCreate={handleTransactionCreate}

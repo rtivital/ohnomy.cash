@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import client from 'src/api/client';
-import { Transaction } from 'src/api/types';
+import { Category, Transaction } from 'src/api/types';
 import MonthContainer from './MonthContainer';
 
 interface MonthRouteState {
   loaded: boolean;
   error: Error;
-  data: Transaction[];
+  data: {
+    transactions: Transaction[];
+    categories: Category[];
+  };
 }
 
 const START_OF_MONTH = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -20,10 +23,10 @@ export default function MonthRoute() {
 
   useEffect(() => {
     setState({ loaded: false, error: null, data: null });
-
-    client
-      .get<Transaction[]>(url)
-      .then((data) => setState({ loaded: true, error: null, data }))
+    Promise.all([client.get<Transaction[]>(url), client.get<Category[]>('/categories')])
+      .then(([transactions, categories]) =>
+        setState({ loaded: true, error: null, data: { transactions, categories } })
+      )
       .catch((error) => setState({ loaded: false, error, data: null }));
   }, [month]);
 
@@ -35,5 +38,12 @@ export default function MonthRoute() {
     return <div>Error</div>;
   }
 
-  return <MonthContainer transactions={state.data} cacheUrl={url} date={date.toISOString()} />;
+  return (
+    <MonthContainer
+      transactions={state.data.transactions}
+      categories={state.data.categories}
+      cacheUrl={url}
+      date={date.toISOString()}
+    />
+  );
 }
