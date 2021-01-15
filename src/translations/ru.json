@@ -50,5 +50,11 @@
   "green": "зелёный",
   "lime": "лайм",
   "yellow": "жёлтый",
-  "oragne": "оранжевый"
+  "oragne": "оранжевый",
+
+  "search_categories": "поиск категории",
+  "search_or_create_categories": "найти или создать категорию",
+  "create_category": "создать категорию",
+  "delete_category": "удалить категорию",
+  "category_not_selected": "не выбрано"
 }
