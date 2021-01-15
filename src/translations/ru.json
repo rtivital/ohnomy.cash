@@ -42,7 +42,7 @@
   "red": "красный",
   "pink": "розовый",
   "grape": "пурпурный",
-  "purple": "фиолетовый",
+  "violet": "фиолетовый",
   "indigo": "индиго",
   "blue": "синий",
   "cyan": "бирюзовый",
@@ -50,10 +50,10 @@
   "green": "зелёный",
   "lime": "лайм",
   "yellow": "жёлтый",
-  "oragne": "оранжевый",
+  "orange": "оранжевый",
 
   "search_categories": "поиск категории",
-  "search_or_create_categories": "найти или создать категорию",
+  "select_or_create_category": "выберите или создайте категорию",
   "create_category": "создать категорию",
   "delete_category": "удалить категорию",
   "category_not_selected": "не выбрано"
