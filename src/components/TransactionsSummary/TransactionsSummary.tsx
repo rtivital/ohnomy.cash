@@ -14,14 +14,16 @@ export default function TransactionsSummary({ className, amount }: TransactionsS
 
   return (
     <Table className={cx(classes.transactionsSummary, className)}>
-      <tr>
-        <td style={{ width: 130 }}>{amount}</td>
-        <td>
-          <Text bold size="sm">
-            {t('total')}
-          </Text>
-        </td>
-      </tr>
+      <tbody>
+        <tr>
+          <td style={{ width: 130 }}>{amount}</td>
+          <td>
+            <Text bold size="sm">
+              {t('total')}
+            </Text>
+          </td>
+        </tr>
+      </tbody>
     </Table>
   );
 }
