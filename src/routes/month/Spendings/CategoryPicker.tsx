@@ -38,19 +38,21 @@ export default function CategoryPicker({
   const t = useTranslations();
 
   return (
-    <TagPicker
-      value={value}
-      onChange={onChange}
-      data={data}
-      searchPlaceholder={t('search_categories')}
-      colors={OPEN_COLOR_THEMES.map((theme) => ({ name: t(theme), color: oc[theme][0] }))}
-      description={t('select_or_create_category')}
-      createLabel={`+ ${t('create_category')}`}
-      deleteLabel={t('delete_category')}
-      noValueLabel={t('category_not_selected')}
-      onTagCreate={onCategoryCreate}
-      onTagDelete={onCategoryDelete}
-      onTagUpdate={onCategoryUpdate}
-    />
+    <div style={{ position: 'relative', zIndex: 10 }}>
+      <TagPicker
+        value={value}
+        onChange={onChange}
+        data={data}
+        searchPlaceholder={t('search_categories')}
+        colors={OPEN_COLOR_THEMES.map((theme) => ({ name: t(theme), color: oc[theme][0] }))}
+        description={t('select_or_create_category')}
+        createLabel={`+ ${t('create_category')}`}
+        deleteLabel={t('delete_category')}
+        noValueLabel={t('category_not_selected')}
+        onTagCreate={onCategoryCreate}
+        onTagDelete={onCategoryDelete}
+        onTagUpdate={onCategoryUpdate}
+      />
+    </div>
   );
 }
