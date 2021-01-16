@@ -14,6 +14,7 @@ import SectionBody from '../SectionBody/SectionBody';
 import getTransactionsSum from '../get-transactions-sum';
 import { BaseTransationEditorProps } from '../types';
 import CategoryPicker from './CategoryPicker';
+import DatePicker from './DatePicker/DatePicker';
 
 interface SpendingsProps extends BaseTransationEditorProps {
   categories: Category[];
@@ -100,7 +101,12 @@ export default function Spendings({
           onCategoryDelete={handleCategoryDelete}
         />
       </td>
-      <td>Date</td>
+      <td>
+        <DatePicker
+          value={new Date(transaction.date)}
+          onChage={(date) => onTransactionUpdate({ ...transaction, date: date.toISOString() })}
+        />
+      </td>
       <td>
         <DescriptionInput
           placeholder={t('description')}
