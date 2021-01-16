@@ -3,13 +3,13 @@ import useFocusProp from 'src/hooks/use-focus-prop';
 import { useLocale } from 'src/LocaleProvider';
 import classes from './AmountInput.styles.less';
 
-function formatNumber(number: number | string, locale: string) {
+export function formatNumber(number: number | string, locale: string) {
   return Intl.NumberFormat(locale).format(
     typeof number === 'number' ? number : parseInt(number, 10)
   );
 }
 
-function extractFormattedNumber(string: string) {
+export function extractFormattedNumber(string: string) {
   const negative = string[0] === '-';
   return parseInt(string.replace(/[^0-9]/g, ''), 10) * (negative ? -1 : 1);
 }

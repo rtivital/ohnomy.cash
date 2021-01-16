@@ -18,6 +18,8 @@
   "date": "дата",
   "add_spending": "добавить расход",
   "no_spendings": "в этом месяце ещё нет расходов",
+  "year": "год",
+  "month": "месяц",
 
   "incomes": "доходы",
   "income": "доход",
@@ -35,6 +37,7 @@
   "month_incomes": "доходы за месяц",
   "month_savings": "накопления за месяц",
   "incomes_spendings_diff": "доходы - расходы",
+  "savings_month_start": "накопления на начало месяца",
   "balance_month_start": "баланс на начало месяца",
   "balance_month_end": "баланс на конец месяца",
   "total_savings": "всего отложено",
