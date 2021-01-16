@@ -1,0 +1,42 @@
+.datePicker {
+  position: relative;
+}
+
+.dropdown {
+  top: -5px;
+  left: -15px;
+  position: absolute;
+  z-index: 20;
+}
+
+.month {
+  table-layout: fixed;
+
+  td {
+    padding: 0;
+  }
+
+  th {
+    border-bottom: 0;
+  }
+}
+
+.control {
+  border: 1px solid transparent;
+  background-color: transparent;
+  height: 28px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -10px;
+  border-radius: 28px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @oc-gray-0;
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: @oc-blue-6;
+  }
+}
