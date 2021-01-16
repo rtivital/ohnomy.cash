@@ -133,7 +133,7 @@ module.exports = {
       ),
     }),
     new FaviconsWebpackPlugin({
-      logo: path.join(__dirname, './favicon.png'),
+      logo: path.join(__dirname, './src/logo.svg'),
       background: '#ffeeee',
       icons: {
         android: true,
