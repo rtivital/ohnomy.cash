@@ -6,6 +6,8 @@ import { DropdownBody, Text } from '@mantine/core';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import { useLocale } from 'src/LocaleProvider';
+import useTranslations from 'src/translations/use-translations';
+import { Link } from 'react-router-dom';
 import groupMonths from './group-months';
 import formatMonth from './format-month';
 import MonthsList from './MonthsList/MonthsList';
@@ -13,7 +15,7 @@ import classes from './MonthPicker.styles.less';
 
 interface MonthPickerProps {
   className?: string;
-  value: Date;
+  value: Date | string;
   onChange(value: Date): void;
 }
 
@@ -23,13 +25,20 @@ interface MonthPickerState {
   error: Error;
 }
 
+function capitalizeString(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 export default function MonthPicker({ className, value, onChange }: MonthPickerProps) {
+  const t = useTranslations();
   const dropdownRef = useRef();
   const locale = useLocale();
   const [state, setState] = useState<MonthPickerState>({ loaded: false, data: null, error: null });
   const [dropdownOpened, setDropdownOpened] = useState(false);
+  const closeDropdown = () => setDropdownOpened(false);
+  const closeOnEscape = (event: KeyboardEvent) => event.code === 'Escape' && closeDropdown();
 
-  useClickOutside(dropdownRef, () => setDropdownOpened(false));
+  useClickOutside(dropdownRef, closeDropdown);
 
   const years = !state.loaded
     ? null
@@ -41,12 +50,14 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
           year={year}
           onChange={(date) => {
             onChange(new Date(date));
-            setDropdownOpened(false);
+            closeDropdown();
           }}
         />
       ));
 
   useEffect(() => {
+    window.addEventListener('keydown', closeOnEscape);
+
     if (!state.loaded) {
       client.axios
         .get<Month[]>('/months')
@@ -55,6 +66,10 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         )
         .catch((error) => setState({ loaded: false, error, data: null }));
     }
+
+    return () => {
+      window.removeEventListener('keydown', closeOnEscape);
+    };
   }, []);
 
   return (
@@ -65,7 +80,9 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         onClick={() => setDropdownOpened(true)}
       >
         <Text size="lg" bold className={classes.monthTitle}>
-          {formatMonth({ date: value, locale, includeYear: true })}
+          {value === 'create-month'
+            ? t('add_month')
+            : capitalizeString(formatMonth({ date: value, locale, includeYear: true }))}
         </Text>
 
         <ChevronDownIcon />
@@ -73,6 +90,10 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
 
       {dropdownOpened && (
         <DropdownBody elementRef={dropdownRef} className={classes.dropdown} noPadding>
+          <Link className={classes.link} to="/create-month" onClick={closeDropdown}>
+            + {t('add_month')}
+          </Link>
+
           {years}
         </DropdownBody>
       )}

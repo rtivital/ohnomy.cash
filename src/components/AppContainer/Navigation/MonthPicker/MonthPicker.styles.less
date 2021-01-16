@@ -1,5 +1,6 @@
 .monthPicker {
   position: relative;
+  z-index: 15;
 }
 
 .dropdown {
@@ -24,11 +25,27 @@
   cursor: pointer;
 
   &:hover {
-    background-color: @oc-blue-0;
+    background-color: @oc-gray-0;
   }
 }
 
 .monthTitle {
-  text-transform: capitalize;
   margin-right: 5px;
+}
+
+.link {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  color: @oc-blue-6;
+  text-decoration: none;
+  font-size: 14px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+
+  &:hover {
+    background-color: @oc-blue-0;
+  }
 }

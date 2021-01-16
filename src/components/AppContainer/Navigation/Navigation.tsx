@@ -16,7 +16,7 @@ export default function Navigation({ className }: NavigationProps) {
   return (
     <nav className={cx(classes.navigation, className)}>
       <MonthPicker
-        value={month ? new Date(month) : new Date()}
+        value={month ? (month === 'create-month' ? month : new Date(month)) : new Date()}
         onChange={(date) => history.push(`/${date.getFullYear()}-${date.getMonth() + 1}`)}
       />
     </nav>
