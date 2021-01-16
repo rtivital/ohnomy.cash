@@ -830,14 +830,14 @@
     regenerator-runtime "^0.13.3"
 
 "@mantine/core@^0.1.5":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.7.tgz#792d45461bf84bf0e66b278c02d9a3b3aae98dc0"
-  integrity sha512-UZTBPAFvEfYL5DYmLfq5/0GcBC7RcahtqoyYuoB7HW7+Zml3JaCqUH+BV8sfunlE9SwQFEWbuGiZOsdK3j0QdA==
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.8.tgz#91bd07dc99dbb088f95b67e727569515fef64fb8"
+  integrity sha512-ZNJQcvcVQaWiHWqGhOS20IymHZg1wl2BV6Oxjjr71ZzDNV/BBDAqnzgooJXWz1p3hb3gtnOCcjOKQ9iFXTDaWw==
 
 "@mantine/tag-picker@^0.1.0":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@mantine/tag-picker/-/tag-picker-0.1.3.tgz#16e926cf0d032e5bc240c390e1d555df9463929e"
-  integrity sha512-2zhiAVA2zCSe6g4sXU4+W6OImBtkbXRLTzafub181JEM+LcCfuapNwR3N4au1Nbg0tDV4dxtckgU3KTqTgtRBg==
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@mantine/tag-picker/-/tag-picker-0.1.4.tgz#946eb2afa0ec68ae1abcd4db672479511a6c1344"
+  integrity sha512-3U4XdQiRl55ojAbaK2iVBaCuv+hw/yisjPdEvr23O96k6kwDA/j0kI6GoNqKXiuGlkMrX4fz3IKnc+N62b5c2A==
 
 "@modulz/radix-icons@^3.3.0":
   version "3.3.0"
