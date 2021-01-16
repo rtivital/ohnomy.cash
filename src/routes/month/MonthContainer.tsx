@@ -6,7 +6,6 @@ import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
 import Spendings from './Spendings/Spendings';
 import Savings from './Savings/Savings';
 import Incomes from './Incomes/Incomes';
-import Summary from './Summary/Summary';
 import { transactionsReducer } from './transactions.reducer';
 import classes from './Month.styles.less';
 
@@ -101,10 +100,6 @@ export default function MonthContainer({
             onTransactionUpdate={handleTransactionUpdate}
             onTransactionCreate={handleTransactionCreate}
           />
-        </div>
-
-        <div className={classes.section}>
-          <Summary />
         </div>
       </div>
     </div>
