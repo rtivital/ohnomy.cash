@@ -91,6 +91,7 @@ export default function Spendings({
       </td>
       <td>
         <CategoryPicker
+          index={index}
           value={transaction.category}
           onChange={(category) => onTransactionUpdate({ ...transaction, category })}
           data={categories}

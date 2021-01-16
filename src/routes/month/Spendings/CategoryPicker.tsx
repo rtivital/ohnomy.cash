@@ -21,6 +21,7 @@ export const OPEN_COLOR_THEMES = [
 interface CategoryPickerProps {
   data: TagPickerTag[];
   value: TagPickerTag;
+  index: number;
   onChange(value: TagPickerTag): void;
   onCategoryCreate(values: TagPickerTag): TagPickerTag;
   onCategoryDelete(id: string): void;
@@ -31,6 +32,7 @@ export default function CategoryPicker({
   value,
   onChange,
   data,
+  index,
   onCategoryCreate,
   onCategoryUpdate,
   onCategoryDelete,
@@ -38,7 +40,7 @@ export default function CategoryPicker({
   const t = useTranslations();
 
   return (
-    <div style={{ position: 'relative', zIndex: 10 }}>
+    <div style={{ position: 'relative', zIndex: 100 - index }}>
       <TagPicker
         value={value}
         onChange={onChange}
