@@ -6,6 +6,7 @@ import settings from '../settings';
 import LoginRoute from './routes/auth/Login.route';
 import RegisterRoute from './routes/auth/Register.route';
 import MonthRoute from './routes/month/Month.route';
+import CreateMonthRoute from './routes/create-month/CreateMonth.route';
 import AppContainer from './components/AppContainer/AppContainer';
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
             <Route path="/:month?">
               <AppContainer>
                 <Switch>
-                  <Route path="/create-month" component={() => <div>Create month</div>} />
+                  <Route path="/create-month" component={CreateMonthRoute} />
                   <Route path="/:month?" component={MonthRoute} />
                 </Switch>
               </AppContainer>
