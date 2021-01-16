@@ -21,6 +21,8 @@ class Client {
     this.axios.interceptors.response.use(null, (error) => {
       if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
         window.location.replace('/auth/login');
+      } else {
+        throw error;
       }
     });
   }
@@ -50,7 +52,7 @@ class Client {
   }
 
   updateCache(url: string, value: any) {
-    this.cache[url] = value;
+    this.cache[url] = typeof value === 'function' ? value(this.cache[url]) : value;
   }
 }
 

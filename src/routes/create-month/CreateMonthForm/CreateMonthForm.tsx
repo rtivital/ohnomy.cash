@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'xooks';
-import { Select, Title, ElementsGroup, Button } from '@mantine/core';
+import { useHistory } from 'react-router-dom';
+import { Select, Title, Text, ElementsGroup, Button } from '@mantine/core';
+import client from 'src/api/client';
 import { useLocale } from 'src/LocaleProvider';
 import useTranslations from 'src/translations/use-translations';
 import NumberInput from './NumberInput';
@@ -12,7 +14,10 @@ function capitalizeString(value: string) {
 
 export default function CreateMonthForm() {
   const t = useTranslations();
+  const [, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const locale = useLocale();
+  const history = useHistory();
 
   const monthNames = Array(12)
     .fill(0)
@@ -37,6 +42,25 @@ export default function CreateMonthForm() {
     },
   });
 
+  const handleSubmit = () => {
+    const values = {
+      month: parseInt(form.values.month, 10),
+      year: parseInt(form.values.year, 10),
+      balance: parseInt(form.values.balance, 10),
+      savings: parseInt(form.values.savings, 10),
+    };
+
+    setLoading(true);
+
+    client.axios
+      .post('/months', values)
+      .then((response) => {
+        client.updateCache('/months', (current: any[]) => current.push(response.data));
+        history.push(`/${form.values.year}-${parseInt(form.values.month, 10) + 1}`);
+      })
+      .catch(() => setError(true));
+  };
+
   return (
     <div className={classes.wrapper}>
       <div>
@@ -44,7 +68,13 @@ export default function CreateMonthForm() {
           {t('add_month')}
         </Title>
 
-        <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
+        <form
+          className={classes.form}
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSubmit();
+          }}
+        >
           <div className={classes.fieldsGroup}>
             <Select
               required
@@ -76,6 +106,12 @@ export default function CreateMonthForm() {
             value={form.values.balance}
             onChange={(value) => form.setField('balance', value)}
           />
+
+          {error && (
+            <Text theme="danger" size="sm" className={classes.error}>
+              {t('month_already_exists')}
+            </Text>
+          )}
 
           <ElementsGroup position="right" className={classes.controls}>
             <Button type="submit">{t('add_month')}</Button>
