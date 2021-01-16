@@ -21,6 +21,9 @@
   "year": "год",
   "month": "месяц",
   "month_already_exists": "месяц уже существует",
+  "unsaved_chages": "несохраненные изменения",
+  "saving_chages": "изменения сохраняются",
+  "all_changes_saved": "все изменения сохранены",
 
   "incomes": "доходы",
   "income": "доход",
