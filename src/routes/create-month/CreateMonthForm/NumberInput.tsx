@@ -14,6 +14,7 @@ export default function NumberInput({ value, onChange, label }: NumberInputProps
 
   return (
     <TextInput
+      style={{ marginTop: 15 }}
       label={label}
       placeholder={label}
       required
