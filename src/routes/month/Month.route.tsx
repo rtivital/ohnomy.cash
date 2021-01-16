@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import client from 'src/api/client';
-import { Category, Transaction } from 'src/api/types';
+import { Category, Month, Transaction } from 'src/api/types';
+import isSameDate from './is-same-date';
 import MonthContainer from './MonthContainer';
 
 interface MonthRouteState {
@@ -16,6 +17,7 @@ interface MonthRouteState {
 const START_OF_MONTH = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
 export default function MonthRoute() {
+  const history = useHistory();
   const { month } = useParams<{ month: string }>();
   const date = month ? new Date(month) : START_OF_MONTH;
   const [state, setState] = useState<MonthRouteState>({ loaded: false, error: null, data: null });
@@ -23,11 +25,20 @@ export default function MonthRoute() {
 
   useEffect(() => {
     setState({ loaded: false, error: null, data: null });
-    Promise.all([client.get<Transaction[]>(url), client.get<Category[]>('/categories')])
-      .then(([transactions, categories]) =>
-        setState({ loaded: true, error: null, data: { transactions, categories } })
-      )
-      .catch((error) => setState({ loaded: false, error, data: null }));
+
+    client.get<Month[]>('/months').then((months) => {
+      const currentMonth = months.find((m) => isSameDate(date, new Date(m.date)));
+      if (!currentMonth) {
+        history.replace('/create-month', { date });
+        return null;
+      }
+
+      return Promise.all([client.get<Transaction[]>(url), client.get<Category[]>('/categories')])
+        .then(([transactions, categories]) => {
+          setState({ loaded: true, error: null, data: { transactions, categories } });
+        })
+        .catch((error) => setState({ loaded: false, error, data: null }));
+    });
   }, [month]);
 
   if (!state.loaded) {

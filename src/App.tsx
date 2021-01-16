@@ -19,6 +19,7 @@ export default function App() {
             <Route path="/:month?">
               <AppContainer>
                 <Switch>
+                  <Route path="/create-month" component={() => <div>Create month</div>} />
                   <Route path="/:month?" component={MonthRoute} />
                 </Switch>
               </AppContainer>
