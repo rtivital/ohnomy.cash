@@ -830,9 +830,9 @@
     regenerator-runtime "^0.13.3"
 
 "@mantine/core@^0.1.5":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.6.tgz#530936e93a9dbeb369e1e1bb055962c23ed3d694"
-  integrity sha512-dzkkBzNpfTq7ndOVg07L45jwiyDdDsbYHcIn/7TCa8FCjjoj8KM9QMnD2Tg8bORHnYFZgqAa41XsX0gXv/OynQ==
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-0.1.7.tgz#792d45461bf84bf0e66b278c02d9a3b3aae98dc0"
+  integrity sha512-UZTBPAFvEfYL5DYmLfq5/0GcBC7RcahtqoyYuoB7HW7+Zml3JaCqUH+BV8sfunlE9SwQFEWbuGiZOsdK3j0QdA==
 
 "@mantine/tag-picker@^0.1.0":
   version "0.1.3"
