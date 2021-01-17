@@ -16,6 +16,27 @@ const entry = path.join(__dirname, './src/index.tsx');
 const output = path.join(__dirname, './dist');
 const publicPath = mode === 'production' ? settings.repoPath || '/' : '/';
 
+const templateContent = ({ htmlWebpackPlugin }) => `
+<!DOCTYPE html>
+<html>
+  <head>
+    ${htmlWebpackPlugin.tags.headTags}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${settings.title}</title>
+  </head>
+  <body>
+    <noscript>
+      Enable JavaScript to use Frontend toolbox
+    </noscript>
+
+    <div id="app"></div>
+    ${htmlWebpackPlugin.tags.bodyTags}
+  </body>
+</html>
+`;
+
 module.exports = {
   mode,
 
@@ -150,28 +171,8 @@ module.exports = {
         windows: false,
       },
     }),
-    new HtmlWebpackPlugin({
-      templateContent: ({ htmlWebpackPlugin }) => `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            ${htmlWebpackPlugin.tags.headTags}
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>${settings.title}</title>
-          </head>
-          <body>
-            <noscript>
-              Enable JavaScript to use Frontend toolbox
-            </noscript>
-
-            <div id="app"></div>
-            ${htmlWebpackPlugin.tags.bodyTags}
-          </body>
-        </html>
-      `,
-    }),
+    new HtmlWebpackPlugin({ templateContent }),
+    new HtmlWebpackPlugin({ filename: '404.html', templateContent }),
     ...(mode !== 'production'
       ? [
           new webpack.HotModuleReplacementPlugin(),
