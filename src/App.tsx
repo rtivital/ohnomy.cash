@@ -7,6 +7,7 @@ import LoginRoute from './routes/auth/Login.route';
 import RegisterRoute from './routes/auth/Register.route';
 import MonthRoute from './routes/month/Month.route';
 import CreateMonthRoute from './routes/create-month/CreateMonth.route';
+import PermissionsRoute from './routes/permissions/Permissions.route';
 import AppContainer from './components/AppContainer/AppContainer';
 
 export default function App() {
@@ -17,6 +18,8 @@ export default function App() {
           <Switch>
             <Route path="/auth/login" component={LoginRoute} />
             <Route path="/auth/register" component={RegisterRoute} />
+            <Route path="/permissions" component={PermissionsRoute} />
+
             <Route path="/:month?">
               <AppContainer>
                 <Switch>
