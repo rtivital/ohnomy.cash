@@ -26,18 +26,25 @@ export default function MonthRoute() {
   useEffect(() => {
     setState({ loaded: false, error: null, data: null });
 
-    client.get<Month[]>('/months').then((months) => {
+    client.get<Month[]>('/months').then(async (months) => {
       const currentMonth = months.find((m) => isSameDate(date, new Date(m.date)));
+
       if (!currentMonth) {
         history.replace('/create-month', { date });
         return null;
       }
 
-      return Promise.all([client.get<Transaction[]>(url), client.get<Category[]>('/categories')])
-        .then(([transactions, categories]) => {
-          setState({ loaded: true, error: null, data: { transactions, categories } });
-        })
-        .catch((error) => setState({ loaded: false, error, data: null }));
+      try {
+        const [transactions, categories] = await Promise.all([
+          client.get<Transaction[]>(url),
+          client.get<Category[]>('/categories'),
+        ]);
+        setState({ loaded: true, error: null, data: { transactions, categories } });
+      } catch (error) {
+        return setState({ loaded: false, error, data: null });
+      }
+
+      return null;
     });
   }, [month]);
 

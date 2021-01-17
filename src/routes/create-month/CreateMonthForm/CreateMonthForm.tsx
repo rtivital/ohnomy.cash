@@ -55,7 +55,7 @@ export default function CreateMonthForm() {
     client.axios
       .post('/months', values)
       .then((response) => {
-        client.updateCache('/months', (current: any[]) => current.push(response.data));
+        client.updateCache('/months', (current: any[]) => [...current, response.data]);
         history.push(`/${form.values.year}-${parseInt(form.values.month, 10) + 1}`);
       })
       .catch(() => setError(true));
