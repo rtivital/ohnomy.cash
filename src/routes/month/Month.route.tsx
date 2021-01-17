@@ -20,6 +20,7 @@ export default function MonthRoute() {
   const history = useHistory();
   const { month } = useParams<{ month: string }>();
   const date = month ? new Date(month) : START_OF_MONTH;
+  date.setHours(23);
   const [state, setState] = useState<MonthRouteState>({ loaded: false, error: null, data: null });
   const url = `/transactions?month=${date.toISOString()}`;
 
