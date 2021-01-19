@@ -19,11 +19,11 @@ export default function App() {
             <Route path="/auth/login" component={LoginRoute} />
             <Route path="/auth/register" component={RegisterRoute} />
             <Route path="/permissions" component={PermissionsRoute} />
+            <Route path="/months/create" component={CreateMonthRoute} />
 
             <Route path="/:month?">
               <AppContainer>
                 <Switch>
-                  <Route path="/create-month" component={CreateMonthRoute} />
                   <Route path="/:month?" component={MonthRoute} />
                 </Switch>
               </AppContainer>

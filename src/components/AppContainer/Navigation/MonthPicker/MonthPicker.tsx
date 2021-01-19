@@ -15,7 +15,7 @@ import classes from './MonthPicker.styles.less';
 
 interface MonthPickerProps {
   className?: string;
-  value: Date | string;
+  value: Date;
   onChange(value: Date): void;
 }
 
@@ -38,7 +38,6 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const closeDropdown = () => setDropdownOpened(false);
   const closeOnEscape = (event: KeyboardEvent) => event.code === 'Escape' && closeDropdown();
-  const isCreate = value === 'create-month';
 
   useClickOutside(dropdownRef, closeDropdown);
 
@@ -82,9 +81,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         onClick={() => setDropdownOpened(true)}
       >
         <Text size="lg" bold className={classes.monthTitle}>
-          {isCreate
-            ? t('add_month')
-            : capitalizeString(formatMonth({ date: value, locale, includeYear: true }))}
+          {capitalizeString(formatMonth({ date: value, locale, includeYear: true }))}
         </Text>
 
         <ChevronDownIcon />
@@ -102,7 +99,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
 
       {dropdownOpened && (
         <DropdownBody elementRef={dropdownRef} className={classes.dropdown} noPadding>
-          <Link className={classes.link} to="/create-month" onClick={closeDropdown}>
+          <Link className={classes.link} to="/months/create" onClick={closeDropdown}>
             + {t('add_month')}
           </Link>
 
