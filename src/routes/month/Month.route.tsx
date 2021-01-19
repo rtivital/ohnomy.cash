@@ -32,7 +32,7 @@ export default function MonthRoute() {
       const currentMonth = months.find((m) => isSameDate(date, new Date(m.date)));
 
       if (!currentMonth) {
-        history.replace('/create-month', { date });
+        history.replace('/months/create', { date });
         return null;
       }
 

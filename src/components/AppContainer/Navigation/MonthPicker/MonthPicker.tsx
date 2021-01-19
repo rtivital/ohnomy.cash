@@ -90,7 +90,9 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
       {value instanceof Date && (
         <ActionIcon
           theme="primary"
-          onClick={() => history.push(`/edit-month/${value.getFullYear()}-${value.getMonth() + 1}`)}
+          onClick={() =>
+            history.push(`/months/edit/${value.getFullYear()}-${value.getMonth() + 1}`)
+          }
           title={t('edit_month')}
         >
           <GearIcon />
