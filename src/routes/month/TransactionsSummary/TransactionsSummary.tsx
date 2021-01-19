@@ -3,7 +3,7 @@ import cx from 'clsx';
 import { Table, Text } from '@mantine/core';
 import useTranslations from 'src/translations/use-translations';
 import { useLocale } from 'src/LocaleProvider';
-import { formatNumber } from '../AmountInput/AmountInput';
+import { formatNumber } from '../../../components/AmountInput/AmountInput';
 import classes from './TransactionsSummary.styles.less';
 
 interface TransactionsSummaryProps {
