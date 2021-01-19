@@ -1,24 +1,21 @@
 import React from 'react';
-import cx from 'clsx';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import MonthPicker from './MonthPicker/MonthPicker';
 import Progress from './Progress/Progress';
 import classes from './Navbar.styles.less';
 
 interface NavbarProps {
-  className?: string;
+  date?: Date;
 }
 
-export default function Navbar({ className }: NavbarProps) {
+export default function Navbar({ date }: NavbarProps) {
   const history = useHistory();
 
-  const { month } = useParams<{ month: string }>();
-
   return (
-    <nav className={cx(classes.navbar, className)}>
+    <nav className={classes.navbar}>
       <MonthPicker
-        value={month ? new Date(month) : new Date()}
-        onChange={(date) => history.push(`/${date.getFullYear()}-${date.getMonth() + 1}`)}
+        value={date || new Date()}
+        onChange={(value) => history.push(`/${value.getFullYear()}-${value.getMonth() + 1}`)}
       />
 
       <Progress />

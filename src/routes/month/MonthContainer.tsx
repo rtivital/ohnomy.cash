@@ -72,7 +72,7 @@ export default function MonthContainer({
 
   return (
     <>
-      <Navbar />
+      <Navbar date={new Date(date)} />
       <Month
         categories={categories}
         onTransactionDelete={handleTransactionDelete}
