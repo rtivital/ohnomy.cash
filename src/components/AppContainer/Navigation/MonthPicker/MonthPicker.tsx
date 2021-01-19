@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import cx from 'clsx';
 import { useClickOutside } from 'xooks';
-import { ChevronDownIcon } from '@modulz/radix-icons';
-import { DropdownBody, Text } from '@mantine/core';
+import { ChevronDownIcon, GearIcon } from '@modulz/radix-icons';
+import { DropdownBody, Text, ActionIcon } from '@mantine/core';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import { useLocale } from 'src/LocaleProvider';
 import useTranslations from 'src/translations/use-translations';
-import { Link } from 'react-router-dom';
 import groupMonths from './group-months';
 import formatMonth from './format-month';
 import MonthsList from './MonthsList/MonthsList';
@@ -30,6 +30,7 @@ function capitalizeString(value: string) {
 }
 
 export default function MonthPicker({ className, value, onChange }: MonthPickerProps) {
+  const history = useHistory();
   const t = useTranslations();
   const dropdownRef = useRef();
   const locale = useLocale();
@@ -37,6 +38,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const closeDropdown = () => setDropdownOpened(false);
   const closeOnEscape = (event: KeyboardEvent) => event.code === 'Escape' && closeDropdown();
+  const isCreate = value === 'create-month';
 
   useClickOutside(dropdownRef, closeDropdown);
 
@@ -80,13 +82,23 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         onClick={() => setDropdownOpened(true)}
       >
         <Text size="lg" bold className={classes.monthTitle}>
-          {value === 'create-month'
+          {isCreate
             ? t('add_month')
             : capitalizeString(formatMonth({ date: value, locale, includeYear: true }))}
         </Text>
 
         <ChevronDownIcon />
       </button>
+
+      {value instanceof Date && (
+        <ActionIcon
+          theme="primary"
+          onClick={() => history.push(`/edit-month/${value.getFullYear()}-${value.getMonth() + 1}`)}
+          title={t('edit_month')}
+        >
+          <GearIcon />
+        </ActionIcon>
+      )}
 
       {dropdownOpened && (
         <DropdownBody elementRef={dropdownRef} className={classes.dropdown} noPadding>
