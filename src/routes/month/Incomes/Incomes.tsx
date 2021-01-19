@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
 import { Table, Text, ActionIcon } from '@mantine/core';
 import AmountInput from 'src/components/AmountInput/AmountInput';
-import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
+import DescriptionInput from 'src/routes/month/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/routes/month/AddTransaction/AddTransaction';
 import TransactionsSummary from 'src/routes/month/TransactionsSummary/TransactionsSummary';
 import useTranslations from 'src/translations/use-translations';

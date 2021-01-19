@@ -7,7 +7,7 @@ import { Category } from 'src/api/types';
 import useTranslations from 'src/translations/use-translations';
 import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
 import AmountInput from 'src/components/AmountInput/AmountInput';
-import DescriptionInput from 'src/components/DescriptionInput/DescriptionInput';
+import DescriptionInput from 'src/routes/month/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/routes/month/AddTransaction/AddTransaction';
 import TransactionsSummary from 'src/routes/month/TransactionsSummary/TransactionsSummary';
 import SectionBody from '../SectionBody/SectionBody';
