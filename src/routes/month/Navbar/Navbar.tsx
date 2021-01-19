@@ -3,19 +3,19 @@ import cx from 'clsx';
 import { useHistory, useParams } from 'react-router-dom';
 import MonthPicker from './MonthPicker/MonthPicker';
 import Progress from './Progress/Progress';
-import classes from './Navigation.styles.less';
+import classes from './Navbar.styles.less';
 
-interface NavigationProps {
+interface NavbarProps {
   className?: string;
 }
 
-export default function Navigation({ className }: NavigationProps) {
+export default function Navbar({ className }: NavbarProps) {
   const history = useHistory();
 
   const { month } = useParams<{ month: string }>();
 
   return (
-    <nav className={cx(classes.navigation, className)}>
+    <nav className={cx(classes.navbar, className)}>
       <MonthPicker
         value={month ? new Date(month) : new Date()}
         onChange={(date) => history.push(`/${date.getFullYear()}-${date.getMonth() + 1}`)}

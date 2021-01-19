@@ -8,7 +8,6 @@ import RegisterRoute from './routes/auth/Register.route';
 import MonthRoute from './routes/month/Month.route';
 import CreateMonthRoute from './routes/create-month/CreateMonth.route';
 import PermissionsRoute from './routes/permissions/Permissions.route';
-import AppContainer from './components/AppContainer/AppContainer';
 
 export default function App() {
   return (
@@ -21,14 +20,7 @@ export default function App() {
             <Route path="/permissions" component={PermissionsRoute} />
             <Route path="/months/create" component={CreateMonthRoute} />
             <Route path="/months/edit/:id" component={() => <div>Edit month</div>} />
-
-            <Route path="/:month?">
-              <AppContainer>
-                <Switch>
-                  <Route path="/:month?" component={MonthRoute} />
-                </Switch>
-              </AppContainer>
-            </Route>
+            <Route path="/:month?" component={MonthRoute} />
           </Switch>
         </BrowserRouter>
       </ScheduledRequestsProvider>

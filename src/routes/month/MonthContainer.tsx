@@ -4,6 +4,7 @@ import { Category, Transaction } from 'src/api/types';
 import client from 'src/api/client';
 import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
 import Month from './Month';
+import Navbar from './Navbar/Navbar';
 import { transactionsReducer } from './transactions.reducer';
 
 interface MonthContainerProps {
@@ -70,14 +71,17 @@ export default function MonthContainer({
   }, [state]);
 
   return (
-    <Month
-      categories={categories}
-      onTransactionDelete={handleTransactionDelete}
-      onTransactionUpdate={handleTransactionUpdate}
-      onTransactionCreate={handleTransactionCreate}
-      spendings={state.transactions.filter((transaction) => transaction.type === 'spending')}
-      savings={state.transactions.filter((transaction) => transaction.type === 'saving')}
-      incomes={state.transactions.filter((transaction) => transaction.type === 'income')}
-    />
+    <>
+      <Navbar />
+      <Month
+        categories={categories}
+        onTransactionDelete={handleTransactionDelete}
+        onTransactionUpdate={handleTransactionUpdate}
+        onTransactionCreate={handleTransactionCreate}
+        spendings={state.transactions.filter((transaction) => transaction.type === 'spending')}
+        savings={state.transactions.filter((transaction) => transaction.type === 'saving')}
+        incomes={state.transactions.filter((transaction) => transaction.type === 'income')}
+      />
+    </>
   );
 }
