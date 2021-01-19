@@ -3,11 +3,8 @@ import { ObjectId } from 'bson';
 import { Category, Transaction } from 'src/api/types';
 import client from 'src/api/client';
 import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
-import Spendings from './Spendings/Spendings';
-import Savings from './Savings/Savings';
-import Incomes from './Incomes/Incomes';
+import Month from './Month';
 import { transactionsReducer } from './transactions.reducer';
-import classes from './Month.styles.less';
 
 interface MonthContainerProps {
   transactions: Transaction[];
@@ -73,35 +70,14 @@ export default function MonthContainer({
   }, [state]);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.column}>
-        <Spendings
-          data={state.transactions.filter((transaction) => transaction.type === 'spending')}
-          categories={categories}
-          onTransactionDelete={handleTransactionDelete}
-          onTransactionUpdate={handleTransactionUpdate}
-          onTransactionCreate={handleTransactionCreate}
-        />
-      </div>
-      <div className={classes.column}>
-        <div className={classes.section}>
-          <Incomes
-            data={state.transactions.filter((transaction) => transaction.type === 'income')}
-            onTransactionDelete={handleTransactionDelete}
-            onTransactionUpdate={handleTransactionUpdate}
-            onTransactionCreate={handleTransactionCreate}
-          />
-        </div>
-
-        <div className={classes.section}>
-          <Savings
-            data={state.transactions.filter((transaction) => transaction.type === 'saving')}
-            onTransactionDelete={handleTransactionDelete}
-            onTransactionUpdate={handleTransactionUpdate}
-            onTransactionCreate={handleTransactionCreate}
-          />
-        </div>
-      </div>
-    </div>
+    <Month
+      categories={categories}
+      onTransactionDelete={handleTransactionDelete}
+      onTransactionUpdate={handleTransactionUpdate}
+      onTransactionCreate={handleTransactionCreate}
+      spendings={state.transactions.filter((transaction) => transaction.type === 'spending')}
+      savings={state.transactions.filter((transaction) => transaction.type === 'saving')}
+      incomes={state.transactions.filter((transaction) => transaction.type === 'income')}
+    />
   );
 }
