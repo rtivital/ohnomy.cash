@@ -11,6 +11,7 @@ interface MonthRouteState {
   data: {
     transactions: Transaction[];
     categories: Category[];
+    month: Month;
   };
 }
 
@@ -40,7 +41,11 @@ export default function MonthRoute() {
           client.get<Transaction[]>(url),
           client.get<Category[]>('/categories'),
         ]);
-        setState({ loaded: true, error: null, data: { transactions, categories } });
+        setState({
+          loaded: true,
+          error: null,
+          data: { transactions, categories, month: currentMonth },
+        });
       } catch (error) {
         return setState({ loaded: false, error, data: null });
       }
