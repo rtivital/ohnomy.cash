@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'xooks';
 import { TextInput, PasswordInput } from '@mantine/core';
 import axiosClient from 'src/api/client';
-import useTranslations from 'src/translations/use-translations';
+import useTranslations from 'src/hooks/use-translations';
 import AuthFormWrapper from '../AuthFormWrapper/AuthFormWrapper';
 
 export default function LoginForm() {

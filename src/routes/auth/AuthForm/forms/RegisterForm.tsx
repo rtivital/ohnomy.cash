@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'xooks';
 import { useHistory } from 'react-router-dom';
 import { TextInput, PasswordInput } from '@mantine/core';
+import useTranslations from 'src/hooks/use-translations';
 import axiosClient from '../../../../api/client';
-import useTranslations from '../../../../translations/use-translations';
 import AuthFormWrapper from '../AuthFormWrapper/AuthFormWrapper';
 
 export default function RegisterForm() {

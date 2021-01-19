@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from '@mantine/core';
-import useTranslations from 'src/translations/use-translations';
+import useTranslations from 'src/hooks/use-translations';
 import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
 import classes from './Progress.styles.less';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, Button, Title, ElementsGroup } from '@mantine/core';
-import useTranslations from 'src/translations/use-translations';
+import useTranslations from 'src/hooks/use-translations';
 
 interface PermissionFormProps {
   onSubmit(email: string): void;

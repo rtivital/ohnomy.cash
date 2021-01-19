@@ -1,6 +1,6 @@
+import en from 'src/translations/en.json';
+import ru from 'src/translations/ru.json';
 import { useLocale } from '../LocaleProvider';
-import en from './en.json';
-import ru from './ru.json';
 
 const locales = {
   en,

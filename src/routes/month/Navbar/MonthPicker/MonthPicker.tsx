@@ -7,7 +7,7 @@ import { DropdownBody, Text, ActionIcon } from '@mantine/core';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import { useLocale } from 'src/LocaleProvider';
-import useTranslations from 'src/translations/use-translations';
+import useTranslations from 'src/hooks/use-translations';
 import groupMonths from './group-months';
 import formatMonth from './format-month';
 import MonthsList from './MonthsList/MonthsList';

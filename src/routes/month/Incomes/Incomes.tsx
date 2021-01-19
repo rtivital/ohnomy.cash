@@ -5,7 +5,7 @@ import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/routes/month/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/routes/month/AddTransaction/AddTransaction';
 import TransactionsSummary from 'src/routes/month/TransactionsSummary/TransactionsSummary';
-import useTranslations from 'src/translations/use-translations';
+import useTranslations from 'src/hooks/use-translations';
 import getTransactionsSum from '../get-transactions-sum';
 import SectionBody from '../SectionBody/SectionBody';
 import { BaseTransationEditorProps } from '../types';

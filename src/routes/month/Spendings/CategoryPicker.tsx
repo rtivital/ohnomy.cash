@@ -1,7 +1,7 @@
 import oc from 'open-color';
 import React from 'react';
 import { TagPicker, TagPickerTag } from '@mantine/tag-picker';
-import useTranslations from 'src/translations/use-translations';
+import useTranslations from 'src/hooks/use-translations';
 
 export const OPEN_COLOR_THEMES = [
   'red',
