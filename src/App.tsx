@@ -19,7 +19,7 @@ export default function App() {
             <Route path="/auth/register" component={RegisterRoute} />
             <Route path="/permissions" component={PermissionsRoute} />
             <Route path="/months/create" component={CreateMonthRoute} />
-            <Route path="/months/edit/:id" component={EditMonthRoute} />
+            <Route path="/months/edit/:month" component={EditMonthRoute} />
             <Route path="/:month?" component={MonthRoute} />
           </Switch>
         </BrowserRouter>
