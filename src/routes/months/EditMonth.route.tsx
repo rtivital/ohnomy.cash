@@ -22,10 +22,10 @@ export default function CreateMonthRoute() {
   const handleSubmit = (values: MonthFormValues) => {
     setLoading(true);
     client.axios
-      .post('/months', values)
+      .post<Month>('/months', values)
       .then((response) => {
         setLoading(false);
-        client.updateCache('/months', (current: any[]) => [...current, response.data]);
+        client.updateCache('/months', (current: Month[]) => [...current, response.data]);
         history.push(`/${values.year}-${values.month + 1}`);
       })
       .catch(setError);
