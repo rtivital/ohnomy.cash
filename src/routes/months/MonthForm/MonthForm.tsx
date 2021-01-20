@@ -27,11 +27,15 @@ interface MonthFormProps {
   initialValues?: MonthFormValues;
   disableDateInputs?: boolean;
   onSubmit(values: MonthFormValues): void;
+  actionLabel: string;
+  buttonLabel: string;
 }
 
 export default function MonthForm({
   disableDateInputs = false,
   initialValues,
+  actionLabel,
+  buttonLabel,
   onSubmit,
   loading,
   error,
@@ -60,7 +64,7 @@ export default function MonthForm({
     <div className={classes.wrapper}>
       <div>
         <Title order={2} className={classes.title}>
-          {t('add_month')}
+          {actionLabel}
         </Title>
 
         <form
@@ -118,7 +122,7 @@ export default function MonthForm({
           )}
 
           <ElementsGroup position="right" className={classes.controls}>
-            <Button type="submit">{t('add_month')}</Button>
+            <Button type="submit">{buttonLabel}</Button>
           </ElementsGroup>
         </form>
       </div>
