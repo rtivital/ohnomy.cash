@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { LocaleProvider } from './LocaleProvider';
-import { ScheduledRequestsProvider } from './ScheduledRequestsProvider';
+import { LocaleProvider } from './providers/LocaleProvider';
+import { ScheduledRequestsProvider } from './providers/ScheduledRequestsProvider';
 import LoginRoute from './routes/auth/Login.route';
 import RegisterRoute from './routes/auth/Register.route';
 import MonthRoute from './routes/month/Month.route';

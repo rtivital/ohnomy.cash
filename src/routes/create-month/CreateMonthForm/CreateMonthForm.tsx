@@ -3,7 +3,7 @@ import { useForm } from 'xooks';
 import { useHistory } from 'react-router-dom';
 import { Select, Title, Text, ElementsGroup, Button } from '@mantine/core';
 import client from 'src/api/client';
-import { useLocale } from 'src/LocaleProvider';
+import { useLocale } from 'src/providers/LocaleProvider';
 import useTranslations from 'src/hooks/use-translations';
 import NumberInput from './NumberInput';
 import classes from './CreateMonthForm.styles.less';

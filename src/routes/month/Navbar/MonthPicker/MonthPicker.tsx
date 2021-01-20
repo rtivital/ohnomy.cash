@@ -6,7 +6,7 @@ import { ChevronDownIcon, GearIcon } from '@modulz/radix-icons';
 import { DropdownBody, Text, ActionIcon } from '@mantine/core';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
-import { useLocale } from 'src/LocaleProvider';
+import { useLocale } from 'src/providers/LocaleProvider';
 import useTranslations from 'src/hooks/use-translations';
 import groupMonths from './group-months';
 import formatMonth from './format-month';

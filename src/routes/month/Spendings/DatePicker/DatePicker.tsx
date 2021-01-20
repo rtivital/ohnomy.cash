@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useClickOutside } from 'xooks';
 import { DropdownBody, Month, Text } from '@mantine/core';
-import { useLocale } from 'src/LocaleProvider';
+import { useLocale } from 'src/providers/LocaleProvider';
 import classes from './DatePicker.styles.less';
 
 interface DatePickerProps {

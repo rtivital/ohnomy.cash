@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { ObjectId } from 'bson';
 import { Category, Transaction } from 'src/api/types';
 import client from 'src/api/client';
-import { useScheduledRequests } from 'src/ScheduledRequestsProvider';
+import { useScheduledRequests } from 'src/providers/ScheduledRequestsProvider';
 import Month from './Month';
 import Navbar from './Navbar/Navbar';
 import { transactionsReducer } from './transactions.reducer';
