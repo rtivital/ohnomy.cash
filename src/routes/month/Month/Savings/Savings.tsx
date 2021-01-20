@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { TrashIcon } from '@modulz/radix-icons';
 import { Table, Text, ActionIcon } from '@mantine/core';
-import AmountInput from 'src/routes/month/Month/AmountInput/AmountInput';
-import DescriptionInput from 'src/routes/month/Month/DescriptionInput/DescriptionInput';
-import AddTransaction from 'src/routes/month/Month/AddTransaction/AddTransaction';
-import TransactionsSummary from 'src/routes/month/Month/TransactionsSummary/TransactionsSummary';
 import useTranslations from 'src/hooks/use-translations';
 import getTransactionsSum from 'src/utils/get-transactions-sum';
+import AmountInput from '../AmountInput/AmountInput';
+import DescriptionInput from '../DescriptionInput/DescriptionInput';
+import AddTransaction from '../AddTransaction/AddTransaction';
+import TransactionsSummary from '../TransactionsSummary/TransactionsSummary';
 import SectionBody from '../SectionBody/SectionBody';
 import { BaseTransationEditorProps } from '../../types';
 
