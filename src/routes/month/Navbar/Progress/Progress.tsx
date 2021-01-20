@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from '@mantine/core';
 import useTranslations from 'src/hooks/use-translations';
-import { useScheduledRequests } from 'src/providers/ScheduledRequestsProvider';
+import useScheduledRequests from 'src/hooks/use-scheduled-requests';
 import classes from './Progress.styles.less';
 
 export default function Progress() {

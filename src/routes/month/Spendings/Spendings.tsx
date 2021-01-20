@@ -5,7 +5,7 @@ import { TrashIcon } from '@modulz/radix-icons';
 import client from 'src/api/client';
 import { Category } from 'src/api/types';
 import useTranslations from 'src/hooks/use-translations';
-import { useScheduledRequests } from 'src/providers/ScheduledRequestsProvider';
+import useScheduledRequests from 'src/hooks/use-scheduled-requests';
 import AmountInput from 'src/components/AmountInput/AmountInput';
 import DescriptionInput from 'src/routes/month/DescriptionInput/DescriptionInput';
 import AddTransaction from 'src/routes/month/AddTransaction/AddTransaction';

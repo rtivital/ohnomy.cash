@@ -1,23 +1,13 @@
-import React, { useState, useRef, useEffect, useContext, createContext } from 'react';
+import React, { useState, useRef, useEffect, createContext } from 'react';
 import client from 'src/api/client';
 import { ScheduledRequest } from 'src/api/types';
 
-const ScheduledRequestsContext = createContext<{
+export const ScheduledRequestsContext = createContext<{
   saving: boolean;
   addScheduledRequest(request: ScheduledRequest): void;
   requests: ScheduledRequest[];
   scheduled: ScheduledRequest[];
 }>(null);
-
-export function useScheduledRequests() {
-  const context = useContext(ScheduledRequestsContext);
-
-  if (!context) {
-    throw new Error('ScheduledRequestsProvider not found');
-  }
-
-  return context;
-}
 
 interface ScheduledRequestsProviderProps {
   children: React.ReactNode;
