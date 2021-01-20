@@ -1,6 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
+import { ScheduledRequest } from './types';
 
 const JWT_KEY = '@onhomycash/jwt';
+
+const METHODS = {
+  create: 'POST',
+  update: 'PUT',
+  delete: 'DELETE',
+} as const;
 
 class Client {
   private cache: Record<string, any>;
@@ -53,6 +60,18 @@ class Client {
 
   updateCache(url: string, value: any) {
     this.cache[url] = typeof value === 'function' ? value(this.cache[url]) : value;
+  }
+
+  sendScheduledRequest = (request: ScheduledRequest) =>
+    this.axios({
+      url: request.url,
+      method: METHODS[request.type],
+      data: request.payload,
+    });
+
+  async sendScheduledRequests(requests: ScheduledRequest[], onFinish: () => void) {
+    await Promise.all(requests.map(this.sendScheduledRequest));
+    onFinish();
   }
 }
 

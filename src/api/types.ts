@@ -1,3 +1,11 @@
+export interface ScheduledRequest {
+  immediate?: boolean;
+  id: string;
+  type: 'create' | 'update' | 'delete';
+  payload: any;
+  url: string;
+}
+
 export interface Month {
   id: string;
   date: string;

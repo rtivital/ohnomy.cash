@@ -1,57 +1,26 @@
 import React, { useState, useRef, useEffect, useContext, createContext } from 'react';
 import client from 'src/api/client';
+import { ScheduledRequest } from 'src/api/types';
 
 const ScheduledRequestsContext = createContext<{
   saving: boolean;
   addScheduledRequest(request: ScheduledRequest): void;
   requests: ScheduledRequest[];
   scheduled: ScheduledRequest[];
-}>({
-  saving: false,
-  addScheduledRequest: (f) => f,
-  requests: [],
-  scheduled: [],
-});
-
-interface ScheduledRequestsProviderProps {
-  children: React.ReactNode;
-}
-
-interface ScheduledRequest {
-  immediate?: boolean;
-  id: string;
-  type: 'create' | 'update' | 'delete';
-  payload: any;
-  url: string;
-}
-
-const METHODS = {
-  create: 'POST',
-  update: 'PUT',
-  delete: 'DELETE',
-} as const;
+}>(null);
 
 export function useScheduledRequests() {
   const context = useContext(ScheduledRequestsContext);
 
   if (!context) {
-    throw new Error('ScheduledRequestsContext not found');
+    throw new Error('ScheduledRequestsProvider not found');
   }
 
   return context;
 }
 
-function sendRequest(request: ScheduledRequest) {
-  return client.axios({
-    url: request.url,
-    method: METHODS[request.type],
-    data: request.payload,
-  });
-}
-
-async function sendRequests(requests: ScheduledRequest[], onFinish: () => void) {
-  await Promise.all(requests.map(sendRequest));
-  onFinish();
+interface ScheduledRequestsProviderProps {
+  children: React.ReactNode;
 }
 
 export function ScheduledRequestsProvider({ children }: ScheduledRequestsProviderProps) {
@@ -66,7 +35,8 @@ export function ScheduledRequestsProvider({ children }: ScheduledRequestsProvide
         setSaving(true);
         setScheduled(requests);
         setRequests([]);
-        sendRequests(requests, () => {
+
+        client.sendScheduledRequests(requests, () => {
           setSaving(false);
           setScheduled([]);
         });
@@ -79,9 +49,9 @@ export function ScheduledRequestsProvider({ children }: ScheduledRequestsProvide
 
     if (request.immediate) {
       setScheduled((current) => [...current, request]);
-      sendRequest(request).then(() =>
-        setScheduled((current) => current.filter((req) => req.id !== request.id))
-      );
+      client
+        .sendScheduledRequest(request)
+        .then(() => setScheduled((current) => current.filter((req) => req.id !== request.id)));
     } else {
       setRequests((currentRequests) => {
         const intersectedRequest = currentRequests.find((req) => req.id === request.id);
