@@ -5,9 +5,16 @@ import { Select, Title, Text, ElementsGroup, Button } from '@mantine/core';
 import client from 'src/api/client';
 import { useLocale } from 'src/hooks/use-locale';
 import useTranslations from 'src/hooks/use-translations';
-import upperFirst from 'src/utils/upper-first';
+import getMonthsNames from 'src/utils/get-months-names';
 import NumberInput from './NumberInput';
 import classes from './MonthForm.styles.less';
+
+const YEARS_DATA = Array(3)
+  .fill(0)
+  .map((_, year) => ({
+    label: (2020 + year).toString(),
+    value: (2020 + year).toString(),
+  }));
 
 export default function MonthForm() {
   const t = useTranslations();
@@ -15,20 +22,7 @@ export default function MonthForm() {
   const [error, setError] = useState(false);
   const locale = useLocale();
   const history = useHistory();
-
-  const monthNames = Array(12)
-    .fill(0)
-    .map((_, month) => ({
-      label: upperFirst(new Date(2000, month).toLocaleString(locale, { month: 'long' })),
-      value: month.toString(),
-    }));
-
-  const yearData = Array(3)
-    .fill(0)
-    .map((_, year) => ({
-      label: (2020 + year).toString(),
-      value: (2020 + year).toString(),
-    }));
+  const monthNames = getMonthsNames(locale);
 
   const form = useForm({
     initialValues: {
@@ -76,7 +70,7 @@ export default function MonthForm() {
             <Select
               required
               label={t('year')}
-              data={yearData}
+              data={YEARS_DATA}
               value={form.values.year}
               onChange={(value) => form.setField('year', value)}
               className={classes.fieldSecondary}
