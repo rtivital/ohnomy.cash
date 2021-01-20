@@ -1,5 +1,5 @@
-import en from 'src/translations/en.json';
-import ru from 'src/translations/ru.json';
+import en from 'src/i18n/en.json';
+import ru from 'src/i18n/ru.json';
 import { useLocale } from './use-locale';
 
 const locales = {
