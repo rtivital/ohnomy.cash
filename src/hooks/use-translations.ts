@@ -1,15 +1,12 @@
 import en from 'src/i18n/en.json';
 import ru from 'src/i18n/ru.json';
+import upperFirst from 'src/utils/upper-first';
 import { useLocale } from './use-locale';
 
 const locales = {
   en,
   ru,
 };
-
-function capitalizeString(value: string) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}
 
 export default function useTranslations() {
   const locale = useLocale();
@@ -20,6 +17,6 @@ export default function useTranslations() {
     }
 
     const value = locales[locale][key.toLowerCase()];
-    return capitalize ? capitalizeString(value) : value;
+    return capitalize ? upperFirst(value) : value;
   };
 }

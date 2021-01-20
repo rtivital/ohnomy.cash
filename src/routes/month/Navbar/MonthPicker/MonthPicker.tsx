@@ -9,6 +9,7 @@ import { Month } from 'src/api/types';
 import useDateFormatter from 'src/hooks/use-date-formatter';
 import useTranslations from 'src/hooks/use-translations';
 import groupMonthsByYear from 'src/utils/group-months-by-year';
+import upperFirst from 'src/utils/upper-first';
 import MonthsList from './MonthsList/MonthsList';
 import classes from './MonthPicker.styles.less';
 
@@ -22,10 +23,6 @@ interface MonthPickerState {
   loaded: boolean;
   data: (readonly [string, Month[]])[];
   error: Error;
-}
-
-function capitalizeString(value: string) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 export default function MonthPicker({ className, value, onChange }: MonthPickerProps) {
@@ -80,7 +77,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         onClick={() => setDropdownOpened(true)}
       >
         <Text size="lg" bold className={classes.monthTitle}>
-          {capitalizeString(formatDate({ date: value, includeYear: true }))}
+          {upperFirst(formatDate({ date: value, includeYear: true }))}
         </Text>
 
         <ChevronDownIcon />
