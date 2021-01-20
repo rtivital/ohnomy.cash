@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import client from 'src/api/client';
 import { Category, Month, Transaction } from 'src/api/types';
 import isSameDate from './is-same-date';
-import MonthContainer from './MonthContainer';
+import MonthContainer from './Month.container';
 
 interface MonthRouteState {
   loaded: boolean;

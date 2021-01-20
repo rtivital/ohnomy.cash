@@ -3,7 +3,7 @@ import { ObjectId } from 'bson';
 import { Category, Transaction } from 'src/api/types';
 import client from 'src/api/client';
 import useScheduledRequests from 'src/hooks/use-scheduled-requests';
-import Month from './Month';
+import Month from './Month/Month';
 import Navbar from './Navbar/Navbar';
 import { transactionsReducer } from './transactions.reducer';
 
