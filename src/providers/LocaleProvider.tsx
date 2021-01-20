@@ -1,30 +1,11 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext } from 'react';
 import { useLocalStorage } from 'xooks';
 
 export type Locale = 'en' | 'ru';
 
-export const LocaleContext = createContext<{ locale: Locale; setLocale(locale: Locale): void }>({
-  locale: 'en',
-  setLocale: (f) => f,
-});
-
-function useLocaleContext() {
-  const context = useContext(LocaleContext);
-
-  if (!context) {
-    throw new Error('LocaleContext not found');
-  }
-
-  return context;
-}
-
-export function useLocale() {
-  return useLocaleContext().locale;
-}
-
-export function useSetLocale() {
-  return useLocaleContext().setLocale;
-}
+export const LocaleContext = createContext<{ locale: Locale; setLocale(locale: Locale): void }>(
+  null
+);
 
 interface LocaleProviderProps {
   defaultLocale?: Locale;

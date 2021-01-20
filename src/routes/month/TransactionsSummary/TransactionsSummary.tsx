@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'clsx';
 import { Table, Text } from '@mantine/core';
 import useTranslations from 'src/hooks/use-translations';
-import { useLocale } from 'src/providers/LocaleProvider';
+import { useLocale } from 'src/hooks/use-locale';
 import { formatNumber } from '../../../components/AmountInput/AmountInput';
 import classes from './TransactionsSummary.styles.less';
 

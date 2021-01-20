@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'clsx';
 import { CheckIcon } from '@modulz/radix-icons';
 import { Text } from '@mantine/core';
-import { useLocale } from 'src/providers/LocaleProvider';
+import { useLocale } from 'src/hooks/use-locale';
 import { Month } from 'src/api/types';
 import formatMonth from '../format-month';
 import isMonthSelected from '../is-month-selected';

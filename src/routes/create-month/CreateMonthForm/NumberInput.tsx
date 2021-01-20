@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput } from '@mantine/core';
 import { formatNumber, extractFormattedNumber } from 'src/components/AmountInput/AmountInput';
-import { useLocale } from 'src/providers/LocaleProvider';
+import { useLocale } from 'src/hooks/use-locale';
 
 interface NumberInputProps {
   value: string;

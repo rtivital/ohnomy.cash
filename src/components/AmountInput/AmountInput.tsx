@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import useFocusProp from 'src/hooks/use-focus-prop';
-import { useLocale } from 'src/providers/LocaleProvider';
+import { useLocale } from 'src/hooks/use-locale';
 import classes from './AmountInput.styles.less';
 
 export function formatNumber(number: number | string, locale: string) {
