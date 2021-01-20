@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import client from 'src/api/client';
 import { Category, Month, Transaction } from 'src/api/types';
-import isSameDate from './is-same-date';
+import isSameMonth from 'src/utils/is-same-month';
 import MonthContainer from './Month.container';
 
 interface MonthRouteState {
@@ -29,7 +29,7 @@ export default function MonthRoute() {
     setState({ loaded: false, error: null, data: null });
 
     client.get<Month[]>('/months').then(async (months) => {
-      const currentMonth = months.find((m) => isSameDate(date, new Date(m.date)));
+      const currentMonth = months.find((m) => isSameMonth(date, new Date(m.date)));
 
       if (!currentMonth) {
         history.replace('/months/create', { date });

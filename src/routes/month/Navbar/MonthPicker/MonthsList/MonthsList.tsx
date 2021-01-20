@@ -2,10 +2,9 @@ import React from 'react';
 import cx from 'clsx';
 import { CheckIcon } from '@modulz/radix-icons';
 import { Text } from '@mantine/core';
-import { useLocale } from 'src/hooks/use-locale';
+import useDateFormatter from 'src/hooks/use-date-formatter';
 import { Month } from 'src/api/types';
-import formatMonth from '../format-month';
-import isMonthSelected from '../is-month-selected';
+import isSameMonth from 'src/utils/is-same-month';
 import classes from './MonthsList.styles.less';
 
 interface MonthsListProps {
@@ -16,21 +15,22 @@ interface MonthsListProps {
 }
 
 export default function MonthsList({ months, onChange, value, year }: MonthsListProps) {
-  const locale = useLocale();
+  const formatDate = useDateFormatter();
 
-  const items = months.map((month) => (
-    <button
-      key={month.id}
-      className={cx(classes.monthContol, {
-        [classes.monthContolActive]: isMonthSelected(value, month.date),
-      })}
-      type="button"
-      onClick={() => onChange(new Date(month.date))}
-    >
-      <Text>{formatMonth({ date: month.date, locale })}</Text>
-      {isMonthSelected(value, month.date) && <CheckIcon />}
-    </button>
-  ));
+  const items = months.map((month) => {
+    const active = isSameMonth(new Date(value), new Date(month.date));
+    return (
+      <button
+        key={month.id}
+        className={cx(classes.monthContol, { [classes.monthContolActive]: active })}
+        type="button"
+        onClick={() => onChange(new Date(month.date))}
+      >
+        <Text>{formatDate({ date: month.date })}</Text>
+        {active && <CheckIcon />}
+      </button>
+    );
+  });
 
   return (
     <div className={classes.monthsList}>

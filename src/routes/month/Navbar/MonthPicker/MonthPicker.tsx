@@ -6,10 +6,9 @@ import { ChevronDownIcon, GearIcon } from '@modulz/radix-icons';
 import { DropdownBody, Text, ActionIcon } from '@mantine/core';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
-import { useLocale } from 'src/hooks/use-locale';
+import useDateFormatter from 'src/hooks/use-date-formatter';
 import useTranslations from 'src/hooks/use-translations';
-import groupMonths from './group-months';
-import formatMonth from './format-month';
+import groupMonthsByYear from 'src/utils/group-months-by-year';
 import MonthsList from './MonthsList/MonthsList';
 import classes from './MonthPicker.styles.less';
 
@@ -31,9 +30,9 @@ function capitalizeString(value: string) {
 
 export default function MonthPicker({ className, value, onChange }: MonthPickerProps) {
   const history = useHistory();
+  const formatDate = useDateFormatter();
   const t = useTranslations();
   const dropdownRef = useRef();
-  const locale = useLocale();
   const [state, setState] = useState<MonthPickerState>({ loaded: false, data: null, error: null });
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const closeDropdown = () => setDropdownOpened(false);
@@ -63,7 +62,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
       client.axios
         .get<Month[]>('/months')
         .then((response) =>
-          setState({ error: null, loaded: true, data: groupMonths(response.data) })
+          setState({ error: null, loaded: true, data: groupMonthsByYear(response.data) })
         )
         .catch((error) => setState({ loaded: false, error, data: null }));
     }
@@ -81,7 +80,7 @@ export default function MonthPicker({ className, value, onChange }: MonthPickerP
         onClick={() => setDropdownOpened(true)}
       >
         <Text size="lg" bold className={classes.monthTitle}>
-          {capitalizeString(formatMonth({ date: value, locale, includeYear: true }))}
+          {capitalizeString(formatDate({ date: value, includeYear: true }))}
         </Text>
 
         <ChevronDownIcon />
