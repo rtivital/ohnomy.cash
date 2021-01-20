@@ -5,7 +5,8 @@ import { ScheduledRequestsProvider } from './providers/ScheduledRequestsProvider
 import LoginRoute from './routes/auth/Login.route';
 import RegisterRoute from './routes/auth/Register.route';
 import MonthRoute from './routes/month/Month.route';
-import CreateMonthRoute from './routes/create-month/CreateMonth.route';
+import CreateMonthRoute from './routes/months/CreateMonth.route';
+import EditMonthRoute from './routes/months/EditMonth.route';
 import PermissionsRoute from './routes/permissions/Permissions.route';
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
             <Route path="/auth/register" component={RegisterRoute} />
             <Route path="/permissions" component={PermissionsRoute} />
             <Route path="/months/create" component={CreateMonthRoute} />
-            <Route path="/months/edit/:id" component={() => <div>Edit month</div>} />
+            <Route path="/months/edit/:id" component={EditMonthRoute} />
             <Route path="/:month?" component={MonthRoute} />
           </Switch>
         </BrowserRouter>
