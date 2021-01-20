@@ -40,6 +40,7 @@ export default function CreateMonthRoute() {
       onSubmit={handleSubmit}
       error={error}
       loading={loading}
+      disableDateInputs
       initialValues={{
         month: date.getMonth(),
         year: date.getFullYear(),

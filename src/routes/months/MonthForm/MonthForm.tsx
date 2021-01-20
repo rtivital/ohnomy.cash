@@ -25,10 +25,17 @@ interface MonthFormProps {
   error?: Error;
   loading: boolean;
   initialValues?: MonthFormValues;
+  disableDateInputs?: boolean;
   onSubmit(values: MonthFormValues): void;
 }
 
-export default function MonthForm({ initialValues, onSubmit, loading, error }: MonthFormProps) {
+export default function MonthForm({
+  disableDateInputs = false,
+  initialValues,
+  onSubmit,
+  loading,
+  error,
+}: MonthFormProps) {
   const t = useTranslations();
   const locale = useLocale();
   const monthNames = getMonthsNames(locale);
@@ -78,6 +85,7 @@ export default function MonthForm({ initialValues, onSubmit, loading, error }: M
               value={form.values.year}
               onChange={(value) => form.setField('year', value)}
               className={classes.fieldSecondary}
+              disabled={disableDateInputs}
             />
 
             <Select
@@ -87,6 +95,7 @@ export default function MonthForm({ initialValues, onSubmit, loading, error }: M
               value={form.values.month}
               onChange={(value) => form.setField('month', value)}
               className={classes.fieldPrimary}
+              disabled={disableDateInputs}
             />
           </div>
 
