@@ -2,8 +2,7 @@ import React from 'react';
 import cx from 'clsx';
 import { Table, Text } from '@mantine/core';
 import useTranslations from 'src/hooks/use-translations';
-import { useLocale } from 'src/hooks/use-locale';
-import { formatNumber } from '../../../components/AmountInput/AmountInput';
+import useNumberFormatter from 'src/hooks/use-number-formatter';
 import classes from './TransactionsSummary.styles.less';
 
 interface TransactionsSummaryProps {
@@ -13,13 +12,13 @@ interface TransactionsSummaryProps {
 
 export default function TransactionsSummary({ className, amount }: TransactionsSummaryProps) {
   const t = useTranslations();
-  const locale = useLocale();
+  const { format } = useNumberFormatter();
 
   return (
     <Table className={cx(classes.transactionsSummary, className)}>
       <tbody>
         <tr>
-          <td style={{ width: 130 }}>{formatNumber(amount, locale)}</td>
+          <td style={{ width: 130 }}>{format(amount)}</td>
           <td>
             <Text bold size="sm">
               {t('total')}

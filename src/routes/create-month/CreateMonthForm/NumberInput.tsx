@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextInput } from '@mantine/core';
-import { formatNumber, extractFormattedNumber } from 'src/components/AmountInput/AmountInput';
-import { useLocale } from 'src/hooks/use-locale';
+import useNumberFormatter from 'src/hooks/use-number-formatter';
 
 interface NumberInputProps {
   value: string;
@@ -10,7 +9,7 @@ interface NumberInputProps {
 }
 
 export default function NumberInput({ value, onChange, label }: NumberInputProps) {
-  const locale = useLocale();
+  const { format, extract } = useNumberFormatter();
 
   return (
     <TextInput
@@ -18,16 +17,11 @@ export default function NumberInput({ value, onChange, label }: NumberInputProps
       label={label}
       placeholder={label}
       required
-      value={Number.isNaN(parseInt(value, 10)) ? value : formatNumber(value, locale)}
+      value={Number.isNaN(parseInt(value, 10)) ? value : format(value)}
       onChange={(val) =>
         val === ''
           ? onChange(val)
-          : onChange(
-              (Number.isNaN(extractFormattedNumber(val))
-                ? ''
-                : extractFormattedNumber(val)
-              ).toString()
-            )
+          : onChange((Number.isNaN(extract(val)) ? '' : extract(val)).toString())
       }
       onBlur={(event) => event.target.value.trim() === '' && onChange('0')}
     />

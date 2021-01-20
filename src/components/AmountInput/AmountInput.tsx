@@ -1,18 +1,7 @@
 import React, { useRef } from 'react';
 import useFocusProp from 'src/hooks/use-focus-prop';
-import { useLocale } from 'src/hooks/use-locale';
+import useNumberFormatter from 'src/hooks/use-number-formatter';
 import classes from './AmountInput.styles.less';
-
-export function formatNumber(number: number | string, locale: string) {
-  return Intl.NumberFormat(locale).format(
-    typeof number === 'number' ? number : parseInt(number, 10)
-  );
-}
-
-export function extractFormattedNumber(string: string) {
-  const negative = string[0] === '-';
-  return parseInt(string.replace(/[^0-9]/g, ''), 10) * (negative ? -1 : 1);
-}
 
 interface AmountInputProps {
   value: string;
@@ -29,8 +18,8 @@ export default function AmountInput({
   allowNegative = false,
   focus = false,
 }: AmountInputProps) {
-  const locale = useLocale();
   const inputRef = useRef();
+  const { format, extract } = useNumberFormatter();
 
   useFocusProp(focus, inputRef);
 
@@ -39,14 +28,14 @@ export default function AmountInput({
       type="text"
       ref={inputRef}
       className={classes.amountInput}
-      value={Number.isNaN(parseInt(value, 10)) ? value : formatNumber(value, locale)}
+      value={Number.isNaN(parseInt(value, 10)) ? value : format(value)}
       onChange={(event) =>
         event.target.value === '' || (allowNegative && event.target.value === '-')
           ? onChange(event.target.value)
           : onChange(
-              (Number.isNaN(extractFormattedNumber(event.target.value))
+              (Number.isNaN(extract(event.target.value))
                 ? ''
-                : extractFormattedNumber(event.target.value)
+                : extract(event.target.value)
               ).toString()
             )
       }
