@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'xooks';
-import { useHistory } from 'react-router-dom';
-import { Select, Title, Text, ElementsGroup, Button } from '@mantine/core';
-import client from 'src/api/client';
+import { Select, Title, Text, ElementsGroup, Button, LoadingOverlay } from '@mantine/core';
 import { useLocale } from 'src/hooks/use-locale';
 import useTranslations from 'src/hooks/use-translations';
 import getMonthsNames from 'src/utils/get-months-names';
@@ -16,41 +14,40 @@ const YEARS_DATA = Array(3)
     value: (2020 + year).toString(),
   }));
 
-export default function MonthForm() {
+export interface MonthFormValues {
+  month: number;
+  year: number;
+  balance: number;
+  savings: number;
+}
+
+interface MonthFormProps {
+  error?: Error;
+  loading: boolean;
+  initialValues?: MonthFormValues;
+  onSubmit(values: MonthFormValues): void;
+}
+
+export default function MonthForm({ initialValues, onSubmit, loading, error }: MonthFormProps) {
   const t = useTranslations();
-  const [, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const locale = useLocale();
-  const history = useHistory();
   const monthNames = getMonthsNames(locale);
 
   const form = useForm({
-    initialValues: {
-      month: (new Date().getMonth() + 1).toString(),
-      year: new Date().getFullYear().toString(),
-      balance: '',
-      savings: '',
-    },
+    initialValues: initialValues
+      ? {
+          month: initialValues.month.toString(),
+          year: initialValues.month.toString(),
+          balance: initialValues.balance.toString(),
+          savings: initialValues.savings.toString(),
+        }
+      : {
+          month: (new Date().getMonth() + 1).toString(),
+          year: new Date().getFullYear().toString(),
+          balance: '0',
+          savings: '0',
+        },
   });
-
-  const handleSubmit = () => {
-    const values = {
-      month: parseInt(form.values.month, 10),
-      year: parseInt(form.values.year, 10),
-      balance: parseInt(form.values.balance, 10),
-      savings: parseInt(form.values.savings, 10),
-    };
-
-    setLoading(true);
-
-    client.axios
-      .post('/months', values)
-      .then((response) => {
-        client.updateCache('/months', (current: any[]) => [...current, response.data]);
-        history.push(`/${form.values.year}-${parseInt(form.values.month, 10) + 1}`);
-      })
-      .catch(() => setError(true));
-  };
 
   return (
     <div className={classes.wrapper}>
@@ -63,9 +60,16 @@ export default function MonthForm() {
           className={classes.form}
           onSubmit={(event) => {
             event.preventDefault();
-            handleSubmit();
+            onSubmit({
+              month: parseInt(form.values.month, 10),
+              year: parseInt(form.values.year, 10),
+              balance: parseInt(form.values.balance, 10),
+              savings: parseInt(form.values.savings, 10),
+            });
           }}
         >
+          <LoadingOverlay visible={loading} />
+
           <div className={classes.fieldsGroup}>
             <Select
               required
