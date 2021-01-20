@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'xooks';
+import { Link } from 'react-router-dom';
+import { ArrowLeftIcon } from '@modulz/radix-icons';
 import { Select, Title, Text, ElementsGroup, Button, LoadingOverlay } from '@mantine/core';
 import { useLocale } from 'src/hooks/use-locale';
 import useTranslations from 'src/hooks/use-translations';
@@ -125,6 +127,11 @@ export default function MonthForm({
             <Button type="submit">{buttonLabel}</Button>
           </ElementsGroup>
         </form>
+
+        <Link to="/" className={classes.backLink}>
+          <ArrowLeftIcon />
+          <span className={classes.backLabel}>{t('back_to_home_page')}</span>
+        </Link>
       </div>
     </div>
   );
