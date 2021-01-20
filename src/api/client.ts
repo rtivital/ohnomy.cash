@@ -59,7 +59,9 @@ class Client {
   }
 
   updateCache(url: string, value: any) {
-    this.cache[url] = typeof value === 'function' ? value(this.cache[url]) : value;
+    if (url in this.cache) {
+      this.cache[url] = typeof value === 'function' ? value(this.cache[url]) : value;
+    }
   }
 
   sendScheduledRequest = (request: ScheduledRequest) =>
