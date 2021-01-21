@@ -36,6 +36,7 @@ export default function DatePicker({ value, onChage }: DatePickerProps) {
       {opened && (
         <DropdownBody className={classes.dropdown} elementRef={dropdownRef}>
           <Month
+            autoFocus
             className={classes.month}
             month={value}
             selected={value}

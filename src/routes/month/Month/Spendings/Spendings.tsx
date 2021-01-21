@@ -147,7 +147,7 @@ export default function Spendings({
 
       <AddTransaction
         onClick={() => {
-          onTransactionCreate('spending');
+          onTransactionCreate('spending', new Date());
           setFocused(data.length);
         }}
       >

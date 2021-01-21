@@ -4,5 +4,5 @@ export interface BaseTransationEditorProps {
   data: Transaction[];
   onTransactionDelete(transaction: Transaction): void;
   onTransactionUpdate(transaction: Transaction): void;
-  onTransactionCreate(type: Transaction['type']): void;
+  onTransactionCreate(type: Transaction['type'], date?: Date): void;
 }

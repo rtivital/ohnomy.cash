@@ -51,12 +51,14 @@ export default function MonthContainer({
     });
   };
 
-  const handleTransactionCreate = (type: Transaction['type']) => {
+  const handleTransactionCreate = (type: Transaction['type'], transactionDate?: Date) => {
+    transactionDate && transactionDate.setHours(23);
+
     const transaction = {
       id: new ObjectId().toHexString(),
       amount: 0,
       description: '',
-      date,
+      date: transactionDate ? transactionDate.toISOString() : date,
       type,
       category: null,
     };
