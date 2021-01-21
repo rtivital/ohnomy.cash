@@ -12,7 +12,7 @@ import MonthContainer from './Month.container';
 interface MonthRouteState {
   transactions: Transaction[];
   categories: Category[];
-  month: Month;
+  currentMonth: Month;
   months: Month[];
 }
 
@@ -40,7 +40,7 @@ export default function MonthRoute() {
           client.get<Transaction[]>(url),
           client.get<Category[]>('/categories'),
         ]);
-        state.onSuccess({ transactions, categories, month: currentMonth, months });
+        state.onSuccess({ transactions, categories, currentMonth, months });
       } catch (error) {
         handleError(error);
       }
@@ -55,6 +55,7 @@ export default function MonthRoute() {
 
   return (
     <MonthContainer
+      currentMonth={state.data.currentMonth}
       months={state.data.months}
       transactions={state.data.transactions}
       categories={state.data.categories}

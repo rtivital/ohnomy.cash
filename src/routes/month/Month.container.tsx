@@ -11,6 +11,7 @@ interface MonthContainerProps {
   transactions: Transaction[];
   categories: Category[];
   months: MonthType[];
+  currentMonth: MonthType;
   cacheUrl: string;
   date: string;
 }
@@ -25,6 +26,7 @@ export default function MonthContainer({
   cacheUrl,
   date,
   months,
+  currentMonth,
 }: MonthContainerProps) {
   const scheduledRequests = useScheduledRequests();
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
@@ -76,6 +78,7 @@ export default function MonthContainer({
     <>
       <Navbar date={new Date(date)} months={months} />
       <Month
+        currentMonth={currentMonth}
         categories={categories}
         onTransactionDelete={handleTransactionDelete}
         onTransactionUpdate={handleTransactionUpdate}

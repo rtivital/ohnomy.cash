@@ -1,5 +1,5 @@
 import React from 'react';
-import { Category, Transaction } from 'src/api/types';
+import { Category, Month as MonthType, Transaction } from 'src/api/types';
 import Spendings from './Spendings/Spendings';
 import Incomes from './Incomes/Incomes';
 import Savings from './Savings/Savings';
@@ -12,6 +12,7 @@ interface MonthProps extends Omit<BaseTransationEditorProps, 'data'> {
   incomes: Transaction[];
   savings: Transaction[];
   spendings: Transaction[];
+  currentMonth: MonthType;
 }
 
 export default function Month(props: MonthProps) {
@@ -36,7 +37,12 @@ export default function Month(props: MonthProps) {
           <Savings {...handlers} data={props.savings} />
         </div>
         <div className={classes.section}>
-          <Summary incomes={props.incomes} savings={props.savings} spendings={props.spendings} />
+          <Summary
+            month={props.currentMonth}
+            incomes={props.incomes}
+            savings={props.savings}
+            spendings={props.spendings}
+          />
         </div>
       </div>
     </div>
