@@ -80,6 +80,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        enforce: 'pre',
+        include: /node_modules/,
+        use: ['source-map-loader'],
+      },
+      {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         include: path.join(__dirname, './src'),
