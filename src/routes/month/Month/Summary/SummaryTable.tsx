@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from '@mantine/core';
+import { Table, Text } from '@mantine/core';
 import useTranslations from 'src/hooks/use-translations';
 import useNumberFormatter from 'src/hooks/use-number-formatter';
 import { Month, Transaction } from 'src/api/types';
@@ -18,18 +18,24 @@ export default function SummaryTable(props: SummaryTableProps) {
   const spendingsTotal = getTransactionsSum(props.spendings);
   const savingsTotal = getTransactionsSum(props.savings);
   const incomesTotal = getTransactionsSum(props.incomes);
+  const balance = props.month.balance + incomesTotal - spendingsTotal - savingsTotal;
+  const diff = incomesTotal - spendingsTotal;
 
   return (
-    <Table>
+    <Table style={{ tableLayout: 'fixed' }}>
       <tbody>
         <tr>
-          <td>{t('month_incomes')}</td>
+          <td style={{ width: 250 }}>{t('month_incomes')}</td>
           <td>{format(incomesTotal)}</td>
         </tr>
 
         <tr>
           <td>{t('incomes_spendings_diff')}</td>
-          <td>{format(incomesTotal - spendingsTotal)}</td>
+          <td>
+            <Text size="sm" theme={diff < 0 ? 'danger' : null}>
+              {format(diff)}
+            </Text>
+          </td>
         </tr>
 
         <tr>
@@ -54,8 +60,10 @@ export default function SummaryTable(props: SummaryTableProps) {
 
         <tr>
           <td>{t('balance_month_end')}</td>
-          <td style={{ fontWeight: 'bold' }}>
-            {format(props.month.balance + incomesTotal - spendingsTotal - savingsTotal)}
+          <td>
+            <Text size="sm" theme={balance >= 0 ? 'success' : 'danger'}>
+              {format(balance)}
+            </Text>
           </td>
         </tr>
       </tbody>

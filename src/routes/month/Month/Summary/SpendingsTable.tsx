@@ -30,7 +30,7 @@ export default function SpendingsTable({ spendings }: SpendingsTableProps) {
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: 15 }}>
       <Table style={{ tableLayout: 'fixed' }}>
         <thead>
           <tr>
