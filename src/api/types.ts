@@ -27,3 +27,9 @@ export interface Transaction {
   date: string;
   description: string;
 }
+
+export interface User {
+  email: string;
+  image: string;
+  name: string;
+}
