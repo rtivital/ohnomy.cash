@@ -19,11 +19,13 @@ export default function MonthRoute() {
   const { month } = useParams<{ month: string }>();
   const date = getStartOfMonth(month);
   const history = useHistory();
-  const { data, loaded, onSuccess } = useLoadState<MonthRouteState>();
+  const state = useLoadState<MonthRouteState>();
   const handleError = useErrorBoundaries();
   const url = `/transactions?month=${date.toISOString()}`;
 
   useEffect(() => {
+    state.onRefetch();
+
     client.get<Month[]>('/months').then(async (months) => {
       const currentMonth = months.find((m) => isSameMonth(date, new Date(m.date)));
 
@@ -37,7 +39,7 @@ export default function MonthRoute() {
           client.get<Transaction[]>(url),
           client.get<Category[]>('/categories'),
         ]);
-        onSuccess({ transactions, categories, month: currentMonth });
+        state.onSuccess({ transactions, categories, month: currentMonth });
       } catch (error) {
         handleError(error);
       }
@@ -46,14 +48,14 @@ export default function MonthRoute() {
     });
   }, [month]);
 
-  if (!loaded) {
+  if (!state.loaded) {
     return <LoadingOverlay visible />;
   }
 
   return (
     <MonthContainer
-      transactions={data.transactions}
-      categories={data.categories}
+      transactions={state.data.transactions}
+      categories={state.data.categories}
       cacheUrl={url}
       date={date.toISOString()}
     />
