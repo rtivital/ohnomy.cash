@@ -2,24 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { LoadingOverlay } from '@mantine/core';
 import useTranslations from 'src/hooks/use-translations';
+import useErrorBoundaries from 'src/hooks/use-error-boundaries';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import useLoadState from 'src/hooks/use-load-state';
+import getStartOfMonth from 'src/utils/get-start-of-month';
 import MonthForm, { MonthFormValues } from './MonthForm/MonthForm';
 
-export default function CreateMonthRoute() {
+export default function EditMonthRoute() {
   const t = useTranslations();
+  const handleError = useErrorBoundaries();
   const { month } = useParams<{ month: string }>();
   const history = useHistory();
   const state = useLoadState<Month>();
   const [error, setError] = useState<Error>(null);
   const [loading, setLoading] = useState(false);
-  const date = new Date(month);
-  date.setDate(2);
+  const date = getStartOfMonth(month);
   const url = `/months/${date.toISOString()}`;
 
   useEffect(() => {
-    client.get<Month>(`/months/${date.toISOString()}`).then(state.onSuccess).catch(state.onError);
+    client.get<Month>(`/months/${date.toISOString()}`).then(state.onSuccess).catch(handleError);
   }, []);
 
   const handleSubmit = (values: MonthFormValues) => {
