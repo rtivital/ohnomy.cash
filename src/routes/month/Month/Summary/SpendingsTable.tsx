@@ -25,6 +25,10 @@ export default function SpendingsTable({ spendings }: SpendingsTableProps) {
     </tr>
   ));
 
+  if (rows.length === 0) {
+    return null;
+  }
+
   return (
     <div>
       <Table style={{ tableLayout: 'fixed' }}>
