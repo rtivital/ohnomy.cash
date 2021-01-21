@@ -26,6 +26,10 @@ class Client {
     });
 
     this.axios.interceptors.response.use(null, (error) => {
+      if (!('response' in error)) {
+        throw error;
+      }
+
       if (error.response.status === 401 && window.location.pathname !== '/auth/login') {
         window.location.replace('/auth/login');
       } else {

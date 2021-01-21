@@ -17,7 +17,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     client.get<User>('/auth/me').then(state.onSuccess).catch(state.onError);
   }, []);
 
-  if (!state.loaded) {
+  if (!state.loaded && !state.error) {
     return <LoadingOverlay visible />;
   }
 
