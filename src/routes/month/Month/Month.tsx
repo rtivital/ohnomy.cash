@@ -3,6 +3,7 @@ import { Category, Transaction } from 'src/api/types';
 import Spendings from './Spendings/Spendings';
 import Incomes from './Incomes/Incomes';
 import Savings from './Savings/Savings';
+import Summary from './Summary/Summary';
 import { BaseTransationEditorProps } from '../types';
 import classes from './Month.styles.less';
 
@@ -33,6 +34,9 @@ export default function Month(props: MonthProps) {
 
         <div className={classes.section}>
           <Savings {...handlers} data={props.savings} />
+        </div>
+        <div className={classes.section}>
+          <Summary incomes={props.incomes} savings={props.savings} spendings={props.spendings} />
         </div>
       </div>
     </div>
