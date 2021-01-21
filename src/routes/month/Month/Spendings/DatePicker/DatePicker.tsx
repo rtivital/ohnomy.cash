@@ -11,9 +11,15 @@ interface DatePickerProps {
 
 export default function DatePicker({ value, onChage }: DatePickerProps) {
   const dropdownRef = useRef();
+  const controlRef = useRef<HTMLButtonElement>();
   const [opened, setOpened] = useState(false);
-  const closeDropdown = () => setOpened(false);
   const locale = useLocale();
+
+  const closeDropdown = () => {
+    setOpened(false);
+    controlRef.current.focus();
+  };
+
   const closeOnEscape = (event: KeyboardEvent) => event.code === 'Escape' && closeDropdown();
 
   useEffect(() => {
@@ -27,7 +33,12 @@ export default function DatePicker({ value, onChage }: DatePickerProps) {
 
   return (
     <div className={classes.datePicker}>
-      <button className={classes.control} onClick={() => setOpened(true)} type="button">
+      <button
+        className={classes.control}
+        onClick={() => setOpened(true)}
+        type="button"
+        ref={controlRef}
+      >
         <Text size="sm">
           {value.getDate()} {value.toLocaleString(locale, { month: 'short' }).replace('.', '')}
         </Text>
