@@ -4,7 +4,6 @@ import cx from 'clsx';
 import { useClickOutside } from 'xooks';
 import { ChevronDownIcon, GearIcon } from '@modulz/radix-icons';
 import { DropdownBody, Text, ActionIcon } from '@mantine/core';
-import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import useDateFormatter from 'src/hooks/use-date-formatter';
 import useTranslations from 'src/hooks/use-translations';
@@ -17,52 +16,35 @@ interface MonthPickerProps {
   className?: string;
   value: Date;
   onChange(value: Date): void;
+  data: Month[];
 }
 
-interface MonthPickerState {
-  loaded: boolean;
-  data: (readonly [string, Month[]])[];
-  error: Error;
-}
-
-export default function MonthPicker({ className, value, onChange }: MonthPickerProps) {
+export default function MonthPicker({ className, value, onChange, data }: MonthPickerProps) {
   const history = useHistory();
   const formatDate = useDateFormatter();
   const t = useTranslations();
   const dropdownRef = useRef();
-  const [state, setState] = useState<MonthPickerState>({ loaded: false, data: null, error: null });
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const closeDropdown = () => setDropdownOpened(false);
   const closeOnEscape = (event: KeyboardEvent) => event.code === 'Escape' && closeDropdown();
 
   useClickOutside(dropdownRef, closeDropdown);
 
-  const years = !state.loaded
-    ? null
-    : state.data.map(([year, months]) => (
-        <MonthsList
-          key={year}
-          months={months}
-          value={value}
-          year={year}
-          onChange={(date) => {
-            onChange(new Date(date));
-            closeDropdown();
-          }}
-        />
-      ));
+  const years = groupMonthsByYear(data).map(([year, months]) => (
+    <MonthsList
+      key={year}
+      months={months}
+      value={value}
+      year={year}
+      onChange={(date) => {
+        onChange(new Date(date));
+        closeDropdown();
+      }}
+    />
+  ));
 
   useEffect(() => {
     window.addEventListener('keydown', closeOnEscape);
-
-    if (!state.loaded) {
-      client.axios
-        .get<Month[]>('/months')
-        .then((response) =>
-          setState({ error: null, loaded: true, data: groupMonthsByYear(response.data) })
-        )
-        .catch((error) => setState({ loaded: false, error, data: null }));
-    }
 
     return () => {
       window.removeEventListener('keydown', closeOnEscape);

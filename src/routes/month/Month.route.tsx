@@ -13,6 +13,7 @@ interface MonthRouteState {
   transactions: Transaction[];
   categories: Category[];
   month: Month;
+  months: Month[];
 }
 
 export default function MonthRoute() {
@@ -39,7 +40,7 @@ export default function MonthRoute() {
           client.get<Transaction[]>(url),
           client.get<Category[]>('/categories'),
         ]);
-        state.onSuccess({ transactions, categories, month: currentMonth });
+        state.onSuccess({ transactions, categories, month: currentMonth, months });
       } catch (error) {
         handleError(error);
       }
@@ -54,6 +55,7 @@ export default function MonthRoute() {
 
   return (
     <MonthContainer
+      months={state.data.months}
       transactions={state.data.transactions}
       categories={state.data.categories}
       cacheUrl={url}

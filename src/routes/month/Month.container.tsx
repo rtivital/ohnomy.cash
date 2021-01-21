@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { ObjectId } from 'bson';
-import { Category, Transaction } from 'src/api/types';
+import { Category, Transaction, Month as MonthType } from 'src/api/types';
 import client from 'src/api/client';
 import useScheduledRequests from 'src/hooks/use-scheduled-requests';
 import Month from './Month/Month';
@@ -10,6 +10,7 @@ import { transactionsReducer } from './transactions.reducer';
 interface MonthContainerProps {
   transactions: Transaction[];
   categories: Category[];
+  months: MonthType[];
   cacheUrl: string;
   date: string;
 }
@@ -23,6 +24,7 @@ export default function MonthContainer({
   categories,
   cacheUrl,
   date,
+  months,
 }: MonthContainerProps) {
   const scheduledRequests = useScheduledRequests();
   const [state, dispatch] = useReducer(transactionsReducer, { transactions, apiUpdates: [] });
@@ -72,7 +74,7 @@ export default function MonthContainer({
 
   return (
     <>
-      <Navbar date={new Date(date)} />
+      <Navbar date={new Date(date)} months={months} />
       <Month
         categories={categories}
         onTransactionDelete={handleTransactionDelete}
