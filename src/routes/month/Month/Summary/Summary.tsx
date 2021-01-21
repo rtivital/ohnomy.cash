@@ -1,22 +1,16 @@
 import React from 'react';
-import { Month, Transaction } from 'src/api/types';
 import useTranslations from 'src/hooks/use-translations';
 import SectionBody from '../SectionBody/SectionBody';
 import SpendingsTable from './SpendingsTable';
+import SummaryTable, { SummaryTableProps } from './SummaryTable';
 
-interface SummaryProps {
-  month: Month;
-  incomes: Transaction[];
-  savings: Transaction[];
-  spendings: Transaction[];
-}
-
-export default function Summary({ incomes, savings, spendings, month }: SummaryProps) {
+export default function Summary(props: SummaryTableProps) {
   const t = useTranslations();
 
   return (
     <SectionBody title={t('summary')}>
-      <SpendingsTable spendings={spendings} />
+      <SpendingsTable spendings={props.spendings} />
+      <SummaryTable {...props} />
     </SectionBody>
   );
 }
