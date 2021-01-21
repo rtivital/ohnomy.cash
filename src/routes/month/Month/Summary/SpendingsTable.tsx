@@ -3,6 +3,7 @@ import { Table } from '@mantine/core';
 import { Transaction } from 'src/api/types';
 import useTranslations from 'src/hooks/use-translations';
 import useNumberFormatter from 'src/hooks/use-number-formatter';
+import CategoryBadge from 'src/components/CategoryBadge/CategoryBadge';
 import TransactionsSummary from '../TransactionsSummary/TransactionsSummary';
 import groupSpendings from './group-spendings';
 
@@ -18,7 +19,9 @@ export default function SpendingsTable({ spendings }: SpendingsTableProps) {
   const rows = data.groups.map(({ category, amount }) => (
     <tr key={category.id}>
       <td>{format(amount)}</td>
-      <td>{category.name}</td>
+      <td>
+        <CategoryBadge data={category} />
+      </td>
     </tr>
   ));
 
