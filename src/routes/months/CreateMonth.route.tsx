@@ -10,12 +10,16 @@ import MonthForm, { MonthFormValues } from './MonthForm/MonthForm';
 export default function CreateMonthRoute() {
   const t = useTranslations();
   const history = useHistory();
-  const monthsState = useLoadState<Month[]>();
+  const state = useLoadState<{ months: Month[]; nextMonth: Month }>();
   const [error, setError] = useState<Error>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    client.get<Month[]>('/months').then(monthsState.onSuccess).catch(monthsState.onError);
+    Promise.all([client.get<Month[]>('/months'), client.get<Month>('/months/next')])
+      .then(([months, nextMonth]) => {
+        state.onSuccess({ months, nextMonth });
+      })
+      .catch(state.onError);
   }, []);
 
   const handleSubmit = (values: MonthFormValues) => {
@@ -34,7 +38,7 @@ export default function CreateMonthRoute() {
       });
   };
 
-  if (!monthsState.loaded) {
+  if (!state.loaded) {
     return <LoadingOverlay visible />;
   }
 
@@ -42,7 +46,7 @@ export default function CreateMonthRoute() {
     <MonthForm
       actionLabel={t('add_month')}
       buttonLabel={t('add_month')}
-      excludeMonths={monthsState.data}
+      excludeMonths={state.data.months}
       onSubmit={handleSubmit}
       error={error}
       loading={loading}
