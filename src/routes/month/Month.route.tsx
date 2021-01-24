@@ -7,6 +7,7 @@ import client from 'src/api/client';
 import { Category, Month, Transaction } from 'src/api/types';
 import isSameMonth from 'src/utils/is-same-month';
 import getStartOfMonth from 'src/utils/get-start-of-month';
+import sortTransactionsByDate from 'src/utils/sort-transactions-by-date';
 import MonthContainer from './Month.container';
 
 interface MonthRouteState {
@@ -40,7 +41,12 @@ export default function MonthRoute() {
           client.get<Transaction[]>(url),
           client.get<Category[]>('/categories'),
         ]);
-        state.onSuccess({ transactions, categories, currentMonth, months });
+        state.onSuccess({
+          transactions: sortTransactionsByDate(transactions),
+          categories,
+          currentMonth,
+          months,
+        });
       } catch (error) {
         handleError(error);
       }
