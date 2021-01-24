@@ -7,7 +7,7 @@ import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import useLoadState from 'src/hooks/use-load-state';
 import getStartOfMonth from 'src/utils/get-start-of-month';
-import MonthForm, { MonthFormValues } from './MonthForm/MonthForm';
+import MonthForm, { MonthFormSubmitValues } from './MonthForm/MonthForm';
 
 export default function EditMonthRoute() {
   const t = useTranslations();
@@ -24,7 +24,7 @@ export default function EditMonthRoute() {
     client.get<Month>(`/months/${date.toISOString()}`).then(state.onSuccess).catch(handleError);
   }, []);
 
-  const handleSubmit = (values: MonthFormValues) => {
+  const handleSubmit = (values: MonthFormSubmitValues) => {
     setLoading(true);
 
     client.axios

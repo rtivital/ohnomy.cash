@@ -5,7 +5,7 @@ import useTranslations from 'src/hooks/use-translations';
 import useLoadState from 'src/hooks/use-load-state';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
-import MonthForm, { MonthFormValues } from './MonthForm/MonthForm';
+import MonthForm, { MonthFormSubmitValues } from './MonthForm/MonthForm';
 
 export default function CreateMonthRoute() {
   const t = useTranslations();
@@ -15,14 +15,14 @@ export default function CreateMonthRoute() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    Promise.all([client.get<Month[]>('/months'), client.get<Month>('/months/next')])
+    Promise.all([client.axios.get<Month[]>('/months'), client.axios.get<Month>('/months/next')])
       .then(([months, nextMonth]) => {
-        state.onSuccess({ months, nextMonth });
+        state.onSuccess({ months: months.data, nextMonth: nextMonth.data });
       })
       .catch(state.onError);
   }, []);
 
-  const handleSubmit = (values: MonthFormValues) => {
+  const handleSubmit = (values: MonthFormSubmitValues) => {
     setLoading(true);
 
     client.axios
@@ -43,8 +43,6 @@ export default function CreateMonthRoute() {
     return <LoadingOverlay visible />;
   }
 
-  // const nextMonthDate = new Date(state.data.nextMonth.date);
-
   return (
     <MonthForm
       actionLabel={t('add_month')}
@@ -53,6 +51,11 @@ export default function CreateMonthRoute() {
       onSubmit={handleSubmit}
       error={error}
       loading={loading}
+      initialValues={{
+        date: state.data.nextMonth.date,
+        balance: state.data.nextMonth.balance,
+        savings: state.data.nextMonth.savings,
+      }}
     />
   );
 }

@@ -19,12 +19,19 @@ export interface MonthFormValues {
   savings: number;
 }
 
+export interface MonthFormSubmitValues {
+  year: number;
+  month: number;
+  balance: number;
+  savings: number;
+}
+
 interface MonthFormProps {
   error?: Error;
   loading: boolean;
   initialValues?: MonthFormValues;
   disableDateInputs?: boolean;
-  onSubmit(values: MonthFormValues): void;
+  onSubmit(values: MonthFormSubmitValues): void;
   actionLabel: string;
   buttonLabel: string;
   excludeMonths?: Month[];
@@ -78,7 +85,8 @@ export default function MonthForm({
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit({
-              date: form.values.date,
+              year: new Date(form.values.date).getFullYear(),
+              month: new Date(form.values.date).getMonth(),
               balance: parseInt(form.values.balance, 10),
               savings: parseInt(form.values.savings, 10),
             });
