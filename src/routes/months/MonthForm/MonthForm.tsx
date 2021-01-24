@@ -7,6 +7,8 @@ import { useLocale } from 'src/hooks/use-locale';
 import useTranslations from 'src/hooks/use-translations';
 import getMonthsNames from 'src/utils/get-months-names';
 import getYearsData from 'src/utils/get-years-data';
+import isSameMonth from 'src/utils/is-same-month';
+import { Month } from 'src/api/types';
 import NumberInput from './NumberInput';
 import classes from './MonthForm.styles.less';
 
@@ -25,6 +27,7 @@ interface MonthFormProps {
   onSubmit(values: MonthFormValues): void;
   actionLabel: string;
   buttonLabel: string;
+  excludeMonths?: Month[];
 }
 
 export default function MonthForm({
@@ -35,10 +38,10 @@ export default function MonthForm({
   onSubmit,
   loading,
   error,
+  excludeMonths = [],
 }: MonthFormProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const monthNames = getMonthsNames(locale);
 
   const form = useForm({
     initialValues: initialValues
@@ -56,6 +59,15 @@ export default function MonthForm({
         },
   });
 
+  const monthNames = getMonthsNames(locale, parseInt(form.values.year, 10)).filter(
+    (month) =>
+      !excludeMonths.some((excludedMonth) => {
+        const excludeDate = new Date(excludedMonth.date);
+        const monthDate = new Date(month.value);
+        return isSameMonth(excludeDate, monthDate);
+      })
+  );
+
   return (
     <div className={classes.wrapper}>
       <div>
@@ -68,7 +80,7 @@ export default function MonthForm({
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit({
-              month: parseInt(form.values.month, 10),
+              month: new Date(form.values.month).getMonth(),
               year: parseInt(form.values.year, 10),
               balance: parseInt(form.values.balance, 10),
               savings: parseInt(form.values.savings, 10),

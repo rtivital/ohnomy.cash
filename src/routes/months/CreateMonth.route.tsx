@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { LoadingOverlay } from '@mantine/core';
 import useTranslations from 'src/hooks/use-translations';
+import useLoadState from 'src/hooks/use-load-state';
 import client from 'src/api/client';
 import { Month } from 'src/api/types';
 import MonthForm, { MonthFormValues } from './MonthForm/MonthForm';
@@ -8,8 +10,13 @@ import MonthForm, { MonthFormValues } from './MonthForm/MonthForm';
 export default function CreateMonthRoute() {
   const t = useTranslations();
   const history = useHistory();
+  const monthsState = useLoadState<Month[]>();
   const [error, setError] = useState<Error>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    client.get<Month[]>('/months').then(monthsState.onSuccess).catch(monthsState.onError);
+  }, []);
 
   const handleSubmit = (values: MonthFormValues) => {
     setLoading(true);
@@ -27,10 +34,15 @@ export default function CreateMonthRoute() {
       });
   };
 
+  if (!monthsState.loaded) {
+    return <LoadingOverlay visible />;
+  }
+
   return (
     <MonthForm
       actionLabel={t('add_month')}
       buttonLabel={t('add_month')}
+      excludeMonths={monthsState.data}
       onSubmit={handleSubmit}
       error={error}
       loading={loading}
