@@ -30,7 +30,8 @@ export default function CreateMonthRoute() {
       .then((response) => {
         setLoading(false);
         client.updateCache('/months', (current: Month[]) => [...current, response.data]);
-        history.push(`/${values.year}-${values.month + 1}`);
+        const month = new Date(response.data.date);
+        history.push(`/${month.getFullYear()}-${month.getMonth() + 1}`);
       })
       .catch((err) => {
         setError(err);
@@ -41,6 +42,8 @@ export default function CreateMonthRoute() {
   if (!state.loaded) {
     return <LoadingOverlay visible />;
   }
+
+  // const nextMonthDate = new Date(state.data.nextMonth.date);
 
   return (
     <MonthForm

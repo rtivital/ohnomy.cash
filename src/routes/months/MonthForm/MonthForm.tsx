@@ -9,12 +9,12 @@ import getMonthsNames from 'src/utils/get-months-names';
 import getYearsData from 'src/utils/get-years-data';
 import isSameMonth from 'src/utils/is-same-month';
 import { Month } from 'src/api/types';
+import getStartOfMonth from 'src/utils/get-start-of-month';
 import NumberInput from './NumberInput';
 import classes from './MonthForm.styles.less';
 
 export interface MonthFormValues {
-  month: number;
-  year: number;
+  date: string;
   balance: number;
   savings: number;
 }
@@ -46,20 +46,18 @@ export default function MonthForm({
   const form = useForm({
     initialValues: initialValues
       ? {
-          month: initialValues.month.toString(),
-          year: initialValues.month.toString(),
+          date: getStartOfMonth(initialValues.date).toISOString(),
           balance: initialValues.balance.toString(),
           savings: initialValues.savings.toString(),
         }
       : {
-          month: (new Date().getMonth() + 1).toString(),
-          year: new Date().getFullYear().toString(),
+          date: new Date().toISOString(),
           balance: '0',
           savings: '0',
         },
   });
 
-  const monthNames = getMonthsNames(locale, parseInt(form.values.year, 10)).filter(
+  const monthNames = getMonthsNames(locale, new Date(form.values.date).getFullYear()).filter(
     (month) =>
       !excludeMonths.some((excludedMonth) => {
         const excludeDate = new Date(excludedMonth.date);
@@ -80,8 +78,7 @@ export default function MonthForm({
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit({
-              month: new Date(form.values.month).getMonth(),
-              year: parseInt(form.values.year, 10),
+              date: form.values.date,
               balance: parseInt(form.values.balance, 10),
               savings: parseInt(form.values.savings, 10),
             });
@@ -94,8 +91,17 @@ export default function MonthForm({
               required
               label={t('year')}
               data={getYearsData()}
-              value={form.values.year}
-              onChange={(value) => form.setField('year', value)}
+              value={new Date(form.values.date).getFullYear().toString()}
+              onChange={(value) =>
+                form.setField(
+                  'date',
+                  new Date(
+                    parseInt(value, 10),
+                    new Date(form.values.date).getMonth(),
+                    2
+                  ).toISOString()
+                )
+              }
               className={classes.fieldSecondary}
               disabled={disableDateInputs}
             />
@@ -104,8 +110,8 @@ export default function MonthForm({
               required
               label={t('month')}
               data={monthNames}
-              value={form.values.month}
-              onChange={(value) => form.setField('month', value)}
+              value={form.values.date}
+              onChange={(value) => form.setField('date', value)}
               className={classes.fieldPrimary}
               disabled={disableDateInputs}
             />

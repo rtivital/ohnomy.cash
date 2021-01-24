@@ -1,7 +1,4 @@
-const START_OF_MONTH = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-
 export default function getStartOfMonth(date?: string | Date) {
-  const startOfMonth = date ? new Date(date) : START_OF_MONTH;
-  startOfMonth.setHours(23);
-  return startOfMonth;
+  const parsed = date ? new Date(date) : new Date();
+  return new Date(parsed.getFullYear(), parsed.getMonth(), 2);
 }

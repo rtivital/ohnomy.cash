@@ -65,8 +65,7 @@ export default function EditMonthRoute() {
       actionLabel={t('edit_month')}
       buttonLabel={t('save')}
       initialValues={{
-        month: date.getMonth(),
-        year: date.getFullYear(),
+        date: date.toISOString(),
         savings: state.data.savings,
         balance: state.data.balance,
       }}
