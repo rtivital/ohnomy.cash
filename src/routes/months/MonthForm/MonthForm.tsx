@@ -6,15 +6,9 @@ import { Select, Title, Text, ElementsGroup, Button, LoadingOverlay } from '@man
 import { useLocale } from 'src/hooks/use-locale';
 import useTranslations from 'src/hooks/use-translations';
 import getMonthsNames from 'src/utils/get-months-names';
+import getYearsData from 'src/utils/get-years-data';
 import NumberInput from './NumberInput';
 import classes from './MonthForm.styles.less';
-
-const YEARS_DATA = Array(3)
-  .fill(0)
-  .map((_, year) => ({
-    label: (2020 + year).toString(),
-    value: (2020 + year).toString(),
-  }));
 
 export interface MonthFormValues {
   month: number;
@@ -87,7 +81,7 @@ export default function MonthForm({
             <Select
               required
               label={t('year')}
-              data={YEARS_DATA}
+              data={getYearsData()}
               value={form.values.year}
               onChange={(value) => form.setField('year', value)}
               className={classes.fieldSecondary}
