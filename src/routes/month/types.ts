@@ -1,6 +1,6 @@
 import { Transaction } from 'src/api/types';
 
-export interface BaseTransationEditorProps {
+export interface BaseTransactionEditorProps {
   data: Transaction[];
   onTransactionDelete(transaction: Transaction): void;
   onTransactionUpdate(transaction: Transaction): void;

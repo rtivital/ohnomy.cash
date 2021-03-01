@@ -4,10 +4,10 @@ import Spendings from './Spendings/Spendings';
 import Incomes from './Incomes/Incomes';
 import Savings from './Savings/Savings';
 import Summary from './Summary/Summary';
-import { BaseTransationEditorProps } from '../types';
+import { BaseTransactionEditorProps } from '../types';
 import classes from './Month.styles.less';
 
-interface MonthProps extends Omit<BaseTransationEditorProps, 'data'> {
+interface MonthProps extends Omit<BaseTransactionEditorProps, 'data'> {
   categories: Category[];
   incomes: Transaction[];
   savings: Transaction[];
@@ -25,7 +25,12 @@ export default function Month(props: MonthProps) {
   return (
     <div className={classes.container}>
       <div className={classes.column}>
-        <Spendings {...handlers} data={props.spendings} categories={props.categories} />
+        <Spendings
+          {...handlers}
+          data={props.spendings}
+          categories={props.categories}
+          month={new Date(props.currentMonth.date)}
+        />
       </div>
 
       <div className={classes.column}>

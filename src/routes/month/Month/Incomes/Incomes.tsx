@@ -8,14 +8,14 @@ import DescriptionInput from '../DescriptionInput/DescriptionInput';
 import AddTransaction from '../AddTransaction/AddTransaction';
 import TransactionsSummary from '../TransactionsSummary/TransactionsSummary';
 import SectionBody from '../SectionBody/SectionBody';
-import { BaseTransationEditorProps } from '../../types';
+import { BaseTransactionEditorProps } from '../../types';
 
 export default function Incomes({
   data,
   onTransactionDelete,
   onTransactionUpdate,
   onTransactionCreate,
-}: BaseTransationEditorProps) {
+}: BaseTransactionEditorProps) {
   const t = useTranslations();
   const [focused, setFocused] = useState(-1);
 

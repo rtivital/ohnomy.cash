@@ -6,10 +6,10 @@ import classes from './DatePicker.styles.less';
 
 interface DatePickerProps {
   value: Date;
-  onChage(value: Date): void;
+  onChange(value: Date): void;
 }
 
-export default function DatePicker({ value, onChage }: DatePickerProps) {
+export default function DatePicker({ value, onChange }: DatePickerProps) {
   const dropdownRef = useRef();
   const controlRef = useRef<HTMLButtonElement>();
   const [opened, setOpened] = useState(false);
@@ -53,7 +53,7 @@ export default function DatePicker({ value, onChage }: DatePickerProps) {
             selected={value}
             locale={locale}
             onDayClick={(day) => {
-              onChage(day);
+              onChange(day);
               closeDropdown();
             }}
           />

@@ -12,16 +12,31 @@ import DescriptionInput from '../DescriptionInput/DescriptionInput';
 import AddTransaction from '../AddTransaction/AddTransaction';
 import TransactionsSummary from '../TransactionsSummary/TransactionsSummary';
 import SectionBody from '../SectionBody/SectionBody';
-import { BaseTransationEditorProps } from '../../types';
+import { BaseTransactionEditorProps } from '../../types';
 import CategoryPicker from './CategoryPicker';
 import DatePicker from './DatePicker/DatePicker';
 
-interface SpendingsProps extends BaseTransationEditorProps {
+interface SpendingsProps extends BaseTransactionEditorProps {
   categories: Category[];
+  month: Date;
+}
+
+function getTransactionDate(currentMonth: Date) {
+  const today = new Date();
+
+  if (
+    today.getFullYear() === currentMonth.getFullYear() &&
+    today.getMonth() === currentMonth.getMonth()
+  ) {
+    return today;
+  }
+
+  return new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0, 15);
 }
 
 export default function Spendings({
   data,
+  month,
   categories: initialCategories,
   onTransactionDelete,
   onTransactionUpdate,
@@ -104,7 +119,7 @@ export default function Spendings({
       <td>
         <DatePicker
           value={new Date(transaction.date)}
-          onChage={(date) => onTransactionUpdate({ ...transaction, date: date.toISOString() })}
+          onChange={(date) => onTransactionUpdate({ ...transaction, date: date.toISOString() })}
         />
       </td>
       <td>
@@ -147,7 +162,7 @@ export default function Spendings({
 
       <AddTransaction
         onClick={() => {
-          onTransactionCreate('spending', new Date());
+          onTransactionCreate('spending', getTransactionDate(month));
           setFocused(data.length);
         }}
       >
