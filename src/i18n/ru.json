@@ -4,7 +4,7 @@
   "email": "почта",
   "name": "имя",
   "password": "пароль",
-  "register": "зарегестрироваться",
+  "register": "зарегистрироваться",
   "invalid_credentials": "неправильная почта или пароль",
   "does_not_have_an_accont": "ещё нет аккаунта?",
   "already_have_an_accont": "уже есть аккаунт?",
